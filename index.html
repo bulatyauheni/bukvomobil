@@ -148,6 +148,20 @@ body:not(.menu) #title{display:none}
 }
 /* narrow phone held upright: the fire button sits above the steering buttons */
 @media (max-width:430px){body.touch #fire{left:44px;bottom:calc(max(18px,env(safe-area-inset-bottom)) + 76px)}body.touch #micBtn{bottom:calc(max(18px,env(safe-area-inset-bottom)) + 84px)}}
+/* video squares of the players who turned their camera on */
+#camBtn{position:fixed;left:calc(50% + 46px);bottom:max(18px,env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:rgba(255,253,246,.92);box-shadow:0 5px 0 rgba(20,50,74,.3);font-size:26px;line-height:1;display:grid;place-items:center;z-index:2;touch-action:none}
+#camBtn.on{background:#22b356;box-shadow:0 0 0 6px rgba(34,179,86,.35),0 2px 0 #157a39}
+#camBtn.on::before{content:'';position:absolute;inset:0}
+#vids{position:fixed;top:236px;right:12px;display:flex;flex-direction:column;gap:8px;z-index:2;pointer-events:none}
+#vids .vt{position:relative;width:120px;height:90px;border-radius:14px;overflow:hidden;background:#20313f;border:3px solid var(--card);box-shadow:0 3px 0 rgba(20,50,74,.25)}
+#vids .vt.talk{border-color:#ff5a4e;box-shadow:0 0 0 4px rgba(255,90,78,.45)}
+#vids video{width:100%;height:100%;object-fit:cover;display:block}
+#vids .vt.me video{transform:scaleX(-1)}
+#vids .vt span{position:absolute;left:4px;bottom:3px;font-size:11px;font-weight:800;color:#fff;background:rgba(0,0,0,.45);border-radius:6px;padding:0 5px;max-width:90%;overflow:hidden;white-space:nowrap}
+@media (max-height:500px),(max-width:600px){#vids{top:142px;right:8px;gap:6px}#vids .vt{width:68px;height:51px;border-width:2px;border-radius:10px}#camBtn{width:50px;height:50px;font-size:22px;left:calc(50% + 38px)}}
+/* phone lying sideways: a row at the top, left of the map, away from the pedals */
+@media (max-height:500px){#vids{top:42px;right:108px;flex-direction:row-reverse;flex-wrap:wrap;max-width:300px}}
+@media (max-width:430px){body.touch #camBtn{bottom:calc(max(18px,env(safe-area-inset-bottom)) + 88px)}}
 @media(prefers-reduced-motion:reduce){#card,#arr{transition:none}}
 </style>
 </head>
@@ -184,6 +198,8 @@ body:not(.menu) #title{display:none}
 <button id="horn" class="hud" aria-label="Сигнал">📢</button>
 <button id="fire" class="hud" aria-label="Огонь">💥</button>
 <button id="micBtn" class="hud" hidden aria-label="Держи, чтобы говорить">🎙️</button>
+<button id="camBtn" class="hud" hidden aria-label="Камера">📷</button>
+<div id="vids" class="hud"></div>
 <div id="hitfx"></div>
 <div id="win" role="status"></div>
 <div id="title">
@@ -231,9 +247,9 @@ const RU=[['А','а','арбуз','🍉'],['Б','бэ','банан','🍌'],['В
 const EN=[['A','ay','apple','🍎'],['B','bee','bear','🐻'],['C','see','cat','🐱'],['D','dee','dog','🐶'],['E','ee','egg','🥚'],['F','ef','fish','🐟'],['G','gee','grapes','🍇'],['H','aitch','house','🏠'],['I','eye','ice cream','🍦'],['J','jay','juice','🧃'],['K','kay','kite','🪁'],['L','el','lion','🦁'],['M','em','moon','🌙'],['N','en','nose','👃'],['O','oh','orange','🍊'],['P','pee','pig','🐷'],['Q','cue','queen','👑'],['R','ar','rocket','🚀'],['S','ess','sun','☀️'],['T','tee','tiger','🐯'],['U','you','umbrella','☂️'],['V','vee','violin','🎻'],['W','double you','whale','🐳'],['X','ex','box','📦',1],['Y','why','yo-yo','🪀'],['Z','zee','zebra','🦓']];
 
 const T={
- ru:{title:'Буквомобиль',langL:'Буквы',modeL:'Режим',free:'Катаемся',freeD:'Сбивай любые буквы и слушай, как они звучат',find:'Найди букву',findD:'Голос загадывает букву — найди её на острове и сбей',go:'Поехали!',help:'Стрелки или WASD — руль и газ, пробел — огонь, H — сигнал, V — говорить. На планшете — кнопки на экране.',carL:'Машина',voiceL:'Голос',listen:'Послушать',noVoice:'Голос не найден',test:'Привет! Поехали искать буквы!',car_gelik:'Гелик',car_sport:'Спорткар',car_tank:'Танк',car_monster:'Монстр-трак',car_fire:'Пожарная',wp_tank:'💥 пушка',wp_gelik:'✴️ пулемёт',wp_sport:'🚀 ракеты',wp_monster:'⚡ молния',wp_fire:'💧 водомёт',findL:'Найди',got:'Собрано',gfxL:'Графика',gAuto:'Авто',gLow:'Быстро',gMid:'Красиво',gHigh:'Супер',race:'Гонка',raceD:'Все ищут одну букву. Кто первым соберёт 10 — победил! Можно стрелять 💥',youWin:'Ты победил! 🏆',winMsg:n=>`Победил ${n}! 🏆`,gotIt:n=>`${n} нашёл!`,killedYou:n=>`Тебя подбил ${n}`,youKilled:n=>`Ты подбил: ${n}!`,newRound:'Новый раунд!',netL:'Играть вместе',host:'Создать игру',join:'Присоединиться',connect:'Подключиться',leave:'Выйти',code:'Код игры',players:'Игроков',connecting:'Подключаюсь…',hostHint:'набери его на другом устройстве',youAre:n=>`Ты игрок ${n}`,followHost:'Буквы и режим выбирает главный.',joinedMsg:n=>`${n} с нами!`,leftMsg:n=>`${n} ушёл`,pl:n=>`Игрок ${n}`,nameL:'Твоё имя',noMic:'Нет доступа к микрофону. Разреши его или открой игру в Chrome',micFile:'Микрофон не работает, когда игра открыта из файла. Открой её по ссылке https:// в Chrome',micDenied:'Микрофон запрещён. Нажми на замочек слева от адреса → Разрешения → Микрофон → Разрешить, потом обнови страницу',micNone:'Микрофон не найден',micBusy:'Микрофон занят другим приложением (звонок, запись?)',voiceN:n=>`🎙️ голос с ${n}`,lostMsg:'Связь потеряна — играем дальше одни',notFound:'Сервер связи доступен, но игра с этим кодом не ответила. Проверь код и что на другом устройстве нажато «Создать игру» и экран не погас',badCode:'Нужен код из 4 цифр',netFail:'Не достучаться до сервера связи. Попробуй другой интернет (Wi-Fi или мобильный) или открой файл в Chrome',netNoLib:'Не загрузилась библиотека связи. Проверь интернет или открой файл в Chrome',verMsg:'Разные версии игры — отправь новый файл на все устройства',fullMsg:'В игре уже 4 игрока',boomT:'Бабах! Машина сломалась',again:'Поехали снова!',boomSay:'Бабах! Машина сломалась. Поехали снова!',hit:'Сбито',hint:'Подсказка',menu:'Меню',voice:'ru-RU',isIt:'Это',
+ ru:{title:'Буквомобиль',langL:'Буквы',modeL:'Режим',free:'Катаемся',freeD:'Сбивай любые буквы и слушай, как они звучат',find:'Найди букву',findD:'Голос загадывает букву — найди её на острове и сбей',go:'Поехали!',help:'Стрелки или WASD — руль и газ, пробел — огонь, H — сигнал, V — говорить. На планшете — кнопки на экране.',carL:'Машина',voiceL:'Голос',listen:'Послушать',noVoice:'Голос не найден',test:'Привет! Поехали искать буквы!',car_gelik:'Гелик',car_sport:'Спорткар',car_tank:'Танк',car_monster:'Монстр-трак',car_fire:'Пожарная',wp_tank:'💥 пушка',wp_gelik:'✴️ пулемёт',wp_sport:'🚀 ракеты',wp_monster:'⚡ молния',wp_fire:'💧 водомёт',findL:'Найди',got:'Собрано',gfxL:'Графика',gAuto:'Авто',gLow:'Быстро',gMid:'Красиво',gHigh:'Супер',race:'Гонка',raceD:'Все ищут одну букву. Кто первым соберёт 10 — победил! Можно стрелять 💥',youWin:'Ты победил! 🏆',winMsg:n=>`Победил ${n}! 🏆`,gotIt:n=>`${n} нашёл!`,killedYou:n=>`Тебя подбил ${n}`,youKilled:n=>`Ты подбил: ${n}!`,newRound:'Новый раунд!',netL:'Играть вместе',host:'Создать игру',join:'Присоединиться',connect:'Подключиться',leave:'Выйти',code:'Код игры',players:'Игроков',connecting:'Подключаюсь…',hostHint:'набери его на другом устройстве',youAre:n=>`Ты игрок ${n}`,followHost:'Буквы и режим выбирает главный.',joinedMsg:n=>`${n} с нами!`,leftMsg:n=>`${n} ушёл`,pl:n=>`Игрок ${n}`,nameL:'Твоё имя',noMic:'Нет доступа к микрофону. Разреши его или открой игру в Chrome',micFile:'Микрофон не работает, когда игра открыта из файла. Открой её по ссылке https:// в Chrome',micDenied:'Микрофон запрещён. Нажми на замочек слева от адреса → Разрешения → Микрофон → Разрешить, потом обнови страницу',micNone:'Микрофон не найден',micBusy:'Микрофон занят другим приложением (звонок, запись?)',camFile:'Камера работает только по ссылке https:// в Chrome',camDenied:'Камера запрещена. Нажми на замочек слева от адреса → Разрешения → Камера → Разрешить, потом обнови страницу',camNone:'Камера не найдена',camBusy:'Камера занята другим приложением',voiceN:n=>`🎙️ голос с ${n}`,lostMsg:'Связь потеряна — играем дальше одни',notFound:'Сервер связи доступен, но игра с этим кодом не ответила. Проверь код и что на другом устройстве нажато «Создать игру» и экран не погас',badCode:'Нужен код из 4 цифр',netFail:'Не достучаться до сервера связи. Попробуй другой интернет (Wi-Fi или мобильный) или открой файл в Chrome',netNoLib:'Не загрузилась библиотека связи. Проверь интернет или открой файл в Chrome',verMsg:'Разные версии игры — отправь новый файл на все устройства',fullMsg:'В игре уже 4 игрока',boomT:'Бабах! Машина сломалась',again:'Поехали снова!',boomSay:'Бабах! Машина сломалась. Поехали снова!',hit:'Сбито',hint:'Подсказка',menu:'Меню',voice:'ru-RU',isIt:'Это',
   phrase:d=>d[4]?`${d[1]}. Как в слове ${d[2]}.`:`${d[1]}. ${d[2]}!`,ask:d=>`Найди букву ${d[1]}!`,wrong:(d,t)=>`Это ${d[1]}. Ищи ${t[1]}!`,good:['Молодец!','Отлично!','Супер!','Здорово!','Ура!']},
- en:{title:'Alphabet Drive',langL:'Letters',modeL:'Mode',free:'Free ride',freeD:'Bump into any letter and hear how it sounds',find:'Find the letter',findD:'The voice picks a letter — find it on the island and hit it',go:"Let's go!",help:'Arrow keys or WASD to drive, Space to shoot, H to honk, V to talk. On a tablet use the buttons on screen.',carL:'Car',voiceL:'Voice',listen:'Listen',noVoice:'No voice found',test:"Hi! Let's go find some letters!",car_gelik:'G-Wagon',car_sport:'Sports car',car_tank:'Tank',car_monster:'Monster truck',car_fire:'Fire truck',wp_tank:'💥 cannon',wp_gelik:'✴️ machine gun',wp_sport:'🚀 rockets',wp_monster:'⚡ lightning',wp_fire:'💧 water cannon',findL:'Find',got:'Found',gfxL:'Graphics',gAuto:'Auto',gLow:'Fast',gMid:'Nice',gHigh:'Super',race:'Race',raceD:'Everyone hunts the same letter. First to collect 10 wins! You can shoot 💥',youWin:'You win! 🏆',winMsg:n=>`${n} wins! 🏆`,gotIt:n=>`${n} got it!`,killedYou:n=>`${n} knocked you out`,youKilled:n=>`You knocked out ${n}!`,newRound:'New round!',netL:'Play together',host:'Create game',join:'Join',connect:'Connect',leave:'Leave',code:'Game code',players:'Players',connecting:'Connecting…',hostHint:'type it on the other device',youAre:n=>`You are player ${n}`,followHost:'The host picks letters and mode.',joinedMsg:n=>`${n} joined!`,leftMsg:n=>`${n} left`,pl:n=>`Player ${n}`,nameL:'Your name',noMic:'No microphone access. Allow it or open the game in Chrome',micFile:'The microphone does not work when the game is opened from a file. Open it from an https:// link in Chrome',micDenied:'Microphone is blocked. Tap the lock left of the address → Permissions → Microphone → Allow, then reload',micNone:'No microphone found',micBusy:'The microphone is busy in another app (a call?)',voiceN:n=>`🎙️ voice with ${n}`,lostMsg:'Connection lost — playing alone now',notFound:'The server works, but no game answered with this code. Check the code and that the other device pressed “Create game”',badCode:'The code has 4 digits',netFail:'Cannot reach the connection server. Try another network or open the file in Chrome',netNoLib:'No internet — playing together is not available',verMsg:'Different game versions — send the new file to every device',fullMsg:'This game already has 4 players',boomT:'Boom! The car broke',again:'Drive again!',boomSay:'Boom! The car broke. Let us drive again!',hit:'Hits',hint:'Hint',menu:'Menu',voice:'en-US',isIt:"That's",
+ en:{title:'Alphabet Drive',langL:'Letters',modeL:'Mode',free:'Free ride',freeD:'Bump into any letter and hear how it sounds',find:'Find the letter',findD:'The voice picks a letter — find it on the island and hit it',go:"Let's go!",help:'Arrow keys or WASD to drive, Space to shoot, H to honk, V to talk. On a tablet use the buttons on screen.',carL:'Car',voiceL:'Voice',listen:'Listen',noVoice:'No voice found',test:"Hi! Let's go find some letters!",car_gelik:'G-Wagon',car_sport:'Sports car',car_tank:'Tank',car_monster:'Monster truck',car_fire:'Fire truck',wp_tank:'💥 cannon',wp_gelik:'✴️ machine gun',wp_sport:'🚀 rockets',wp_monster:'⚡ lightning',wp_fire:'💧 water cannon',findL:'Find',got:'Found',gfxL:'Graphics',gAuto:'Auto',gLow:'Fast',gMid:'Nice',gHigh:'Super',race:'Race',raceD:'Everyone hunts the same letter. First to collect 10 wins! You can shoot 💥',youWin:'You win! 🏆',winMsg:n=>`${n} wins! 🏆`,gotIt:n=>`${n} got it!`,killedYou:n=>`${n} knocked you out`,youKilled:n=>`You knocked out ${n}!`,newRound:'New round!',netL:'Play together',host:'Create game',join:'Join',connect:'Connect',leave:'Leave',code:'Game code',players:'Players',connecting:'Connecting…',hostHint:'type it on the other device',youAre:n=>`You are player ${n}`,followHost:'The host picks letters and mode.',joinedMsg:n=>`${n} joined!`,leftMsg:n=>`${n} left`,pl:n=>`Player ${n}`,nameL:'Your name',noMic:'No microphone access. Allow it or open the game in Chrome',micFile:'The microphone does not work when the game is opened from a file. Open it from an https:// link in Chrome',micDenied:'Microphone is blocked. Tap the lock left of the address → Permissions → Microphone → Allow, then reload',micNone:'No microphone found',micBusy:'The microphone is busy in another app (a call?)',camFile:'The camera works only from an https:// link in Chrome',camDenied:'Camera is blocked. Tap the lock left of the address → Permissions → Camera → Allow, then reload',camNone:'No camera found',camBusy:'The camera is busy in another app',voiceN:n=>`🎙️ voice with ${n}`,lostMsg:'Connection lost — playing alone now',notFound:'The server works, but no game answered with this code. Check the code and that the other device pressed “Create game”',badCode:'The code has 4 digits',netFail:'Cannot reach the connection server. Try another network or open the file in Chrome',netNoLib:'No internet — playing together is not available',verMsg:'Different game versions — send the new file to every device',fullMsg:'This game already has 4 players',boomT:'Boom! The car broke',again:'Drive again!',boomSay:'Boom! The car broke. Let us drive again!',hit:'Hits',hint:'Hint',menu:'Menu',voice:'en-US',isIt:"That's",
   phrase:d=>d[4]?`${d[1]}, like in ${d[2]}.`:`${d[1]}. ${d[2]}!`,ask:d=>`Find the letter ${d[1]}!`,wrong:(d,t)=>`That's ${d[1]}. Find ${t[1]}!`,good:['Well done!','Great job!','Super!','Awesome!','Yay!']}
 };
 
@@ -1994,7 +2010,7 @@ function updNetUI(){
   $('#netL').textContent=t.netL+' · версия '+NET_VER;
   $('#go').textContent=net&&net.role==='client'&&!net.ready?t.connecting:!net&&joinOpen?t.connect:t.go;
   drawBoard();
-  $('#micBtn').hidden=!(net&&net.ready);$('#nameIn').placeholder=t.nameL;
+  $('#micBtn').hidden=!(net&&net.ready);$('#camBtn').hidden=!(net&&net.ready)||!window.RTCPeerConnection;$('#nameIn').placeholder=t.nameL;
   if(net&&net.ready&&voiceOn())$('#netInfo').insertAdjacentHTML('beforeend','<br>'+esc(t.voiceN(voiceOn())));
   document.querySelectorAll('[data-lang],[data-mode]').forEach(b=>b.disabled=isClient());
 }
@@ -2084,7 +2100,7 @@ async function joinGame(code){
   setTimeout(go,4000);
 }
 function clientData(d){
-  if(d.t==='shot'||d.t==='dmg'||d.t==='kill'||d.t==='pulse'||d.t==='rtc'||d.t==='talk'){if(d.f===net.host)net.hostSeen=time;peerMsg(d);return}
+  if(d.t==='shot'||d.t==='dmg'||d.t==='kill'||d.t==='pulse'||d.t==='rtc'||d.t==='talk'||d.t==='cam'){if(d.f===net.host)net.hostSeen=time;peerMsg(d);return}
   if(d.t==='car'||d.t==='smash'||d.t==='horn'||d.t==='bye'){
     if(d.f===net.host)net.hostSeen=time;
     if(d.t==='car')remoteState(d);else if(d.t==='smash')netSmash(d);else if(d.t==='horn')remoteHorn(d);
@@ -2478,11 +2494,11 @@ function nameOf(id){
 }
 /* ---------- voice chat: hold the 🎙️ button (or V) to talk.
    Sound goes straight between devices (WebRTC); the game messages server only helps them find each other. ---------- */
-const voice={stream:null,pcs:new Map(),audios:new Map(),want:false,talking:false,fails:new Map()};
+const voice={stream:null,pcs:new Map(),audios:new Map(),want:false,talking:false,fails:new Map(),cam:null,camSent:0};
 /* say exactly why the microphone did not start, so a grown-up knows what to tap */
-function micErr(e){
-  const n=e&&e.name||'',T=Tx();
-  const t=!window.isSecureContext||!navigator.mediaDevices?T.micFile:n==='NotAllowedError'||n==='SecurityError'?T.micDenied:n==='NotFoundError'||n==='OverconstrainedError'?T.micNone:n==='NotReadableError'||n==='AbortError'?T.micBusy:T.noMic+(n?' ('+n+')':'');
+function micErr(e,cam){
+  const n=e&&e.name||'',T=Tx(),k=cam?'cam':'mic';
+  const t=!window.isSecureContext||!navigator.mediaDevices?T[k+'File']:n==='NotAllowedError'||n==='SecurityError'?T[k+'Denied']:n==='NotFoundError'||n==='OverconstrainedError'?T[k+'None']:n==='NotReadableError'||n==='AbortError'?T[k+'Busy']:(cam?T.camNone:T.noMic)+(n?' ('+n+')':'');
   showBanner(t);const b=$('#banner');clearTimeout(bannerT);bannerT=setTimeout(()=>b.classList.remove('on'),9000);
 }
 async function micStart(){
@@ -2500,25 +2516,64 @@ function talk(on){
   if(on&&!voice.stream){micStart().then(ok=>{if(ok&&voice.want)talk(true)});return}
   if(!voice.stream)return;
   voice.stream.getAudioTracks()[0].enabled=on;
-  if(voice.talking!==on){voice.talking=on;$('#micBtn').classList.toggle('on',on);netSend({t:'talk',on:on?1:0})}
+  if(voice.talking!==on){voice.talking=on;$('#micBtn').classList.toggle('on',on);netSend({t:'talk',on:on?1:0});updVids()}
 }
 function rtcFor(id,initiator){
   let v=voice.pcs.get(id);if(v)return v;
   const pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]});
   v={pc,id,q:[],sender:null,state:'new'};voice.pcs.set(id,v);
-  if(initiator){const tx=pc.addTransceiver('audio',{direction:'sendrecv'});v.sender=tx.sender;if(voice.stream)tx.sender.replaceTrack(voice.stream.getAudioTracks()[0]).catch(()=>{})}
+  if(initiator){const tx=pc.addTransceiver('audio',{direction:'sendrecv'});v.sender=tx.sender;if(voice.stream)tx.sender.replaceTrack(voice.stream.getAudioTracks()[0]).catch(()=>{});
+    const tv=pc.addTransceiver('video',{direction:'sendrecv'});v.vsender=tv.sender;if(voice.cam)camSend(v)}
   pc.onicecandidate=e=>{if(e.candidate)netSend({t:'rtc',to:id,ice:e.candidate.toJSON()})};
   pc.ontrack=e=>{
+    if(e.track.kind==='video'){v.vtrack=e.track;updVids();return}
     let a=voice.audios.get(id);if(!a){a=document.createElement('audio');a.autoplay=true;a.setAttribute('playsinline','');document.body.appendChild(a);voice.audios.set(id,a)}
     a.srcObject=e.streams&&e.streams[0]?e.streams[0]:new MediaStream([e.track]);a.play().catch(()=>{});
   };
-  pc.onconnectionstatechange=()=>{v.state=pc.connectionState;if(pc.connectionState==='failed'){voice.fails.set(id,time);closeRtc(id)}updNetUI()};
+  pc.onconnectionstatechange=()=>{v.state=pc.connectionState;if(v.state==='connected'){camRate(v);if(voice.cam)netSend({t:'cam',on:1})}if(pc.connectionState==='failed'){voice.fails.set(id,time);closeRtc(id)}updNetUI()};
   if(initiator)pc.createOffer().then(o=>pc.setLocalDescription(o)).then(()=>netSend({t:'rtc',to:id,sdp:pc.localDescription.toJSON()})).catch(()=>{});
   return v;
 }
 function closeRtc(id){
   const v=voice.pcs.get(id);if(v){try{v.pc.close()}catch(e){}voice.pcs.delete(id)}
   const a=voice.audios.get(id);if(a){a.srcObject=null;a.remove();voice.audios.delete(id)}
+  updVids();
+}
+/* ---------- camera: tap 📷 to show your face to friends; their faces appear as small squares on the right ---------- */
+function camRate(v){
+  if(!v.vsender||!v.vsender.getParameters)return;
+  try{const p=v.vsender.getParameters();if(!p.encodings||!p.encodings.length)p.encodings=[{}];p.encodings[0].maxBitrate=150000;p.encodings[0].maxFramerate=15;v.vsender.setParameters(p).catch(()=>{})}catch(e){}
+}
+function camSend(v){if(v.vsender)v.vsender.replaceTrack(voice.cam?voice.cam.getVideoTracks()[0]:null).then(()=>camRate(v)).catch(()=>{})}
+async function camToggle(){
+  if(!net||!net.ready)return;
+  if(voice.cam){camOff();return}
+  if(!window.isSecureContext||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){micErr(null,true);return}
+  try{voice.cam=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:160},height:{ideal:120},frameRate:{ideal:15,max:15},facingMode:'user'}})}
+  catch(e){micErr(e,true);return}
+  if(!net||!net.ready){camOff();return}
+  for(const v of voice.pcs.values())camSend(v);
+  $('#camBtn').classList.add('on');netSend({t:'cam',on:1});voice.camSent=time;updVids();
+}
+function camOff(){
+  if(voice.cam){voice.cam.getTracks().forEach(t=>t.stop());voice.cam=null}
+  for(const v of voice.pcs.values())camSend(v);
+  $('#camBtn').classList.remove('on');if(net&&net.ready)netSend({t:'cam',on:0});updVids();
+}
+/* draw the squares: mine first (mirrored), then every friend whose camera is on */
+function updVids(){
+  const box=$('#vids'),want=new Map();
+  if(voice.cam)want.set('me',{stream:voice.cam,name:myName||Tx().pl((net&&net.num)||1),talk:voice.talking,me:true});
+  for(const [id,v] of voice.pcs){const r=remotes.get(id);if(r&&r.cam&&v.vtrack&&v.vtrack.readyState==='live')want.set(id,{track:v.vtrack,name:r.nm||Tx().pl(r.num),talk:r.talk})}
+  for(const el of [...box.children])if(!want.has(el.dataset.id))el.remove();
+  for(const [id,w] of want){
+    let el=[...box.children].find(e=>e.dataset.id===id);
+    if(!el){el=document.createElement('div');el.className='vt'+(w.me?' me':'');el.dataset.id=id;const vd=document.createElement('video');vd.muted=true;vd.autoplay=true;vd.setAttribute('playsinline','');el.append(vd,document.createElement('span'));box.append(el)}
+    const vd=el.firstChild,src=w.stream||(el._t===w.track?null:new MediaStream([w.track]));
+    if(w.stream&&vd.srcObject!==w.stream){vd.srcObject=w.stream;vd.play().catch(()=>{})}
+    if(w.track&&el._t!==w.track){el._t=w.track;vd.srcObject=src;vd.play().catch(()=>{})}
+    el.lastChild.textContent=w.name;el.classList.toggle('talk',!!w.talk);
+  }
 }
 async function flushIce(v){const q=v.q;v.q=[];for(const c of q)try{await v.pc.addIceCandidate(c)}catch(e){}}
 async function rtcMsg(d){
@@ -2528,7 +2583,8 @@ async function rtcMsg(d){
       if(voice.pcs.has(d.f))closeRtc(d.f);
       const v=rtcFor(d.f,false);
       await v.pc.setRemoteDescription(d.sdp);
-      const tr=v.pc.getTransceivers()[0];if(tr){tr.direction='sendrecv';v.sender=tr.sender;if(voice.stream)await tr.sender.replaceTrack(voice.stream.getAudioTracks()[0])}
+      const trs=v.pc.getTransceivers(),tr=trs.find(t=>t.receiver.track&&t.receiver.track.kind==='audio')||trs[0];if(tr){tr.direction='sendrecv';v.sender=tr.sender;if(voice.stream)await tr.sender.replaceTrack(voice.stream.getAudioTracks()[0])}
+      const tv=trs.find(t=>t.receiver.track&&t.receiver.track.kind==='video');if(tv){tv.direction='sendrecv';v.vsender=tv.sender;if(voice.cam)camSend(v)}
       const ans=await v.pc.createAnswer();await v.pc.setLocalDescription(ans);
       netSend({t:'rtc',to:d.f,sdp:v.pc.localDescription.toJSON()});await flushIce(v);
     }else if(d.sdp&&d.sdp.type==='answer'){
@@ -2547,14 +2603,18 @@ function voiceTick(){
     if(myId()<id&&time-(voice.fails.get(id)??-99)>15)rtcFor(id,true);
   }
   for(const id of [...voice.pcs.keys()])if(!remotes.has(id))closeRtc(id);
+  if(voice.cam&&time-voice.camSent>5){voice.camSent=time;netSend({t:'cam',on:1})}
+  updVids();
 }
 function voiceStop(){
   for(const id of [...voice.pcs.keys()])closeRtc(id);
+  if(voice.cam){voice.cam.getTracks().forEach(t=>t.stop());voice.cam=null}$('#camBtn').classList.remove('on');
   if(voice.stream){voice.stream.getTracks().forEach(t=>t.stop());voice.stream=null}
-  voice.talking=voice.want=false;$('#micBtn').classList.remove('on');voice.fails.clear();
+  voice.talking=voice.want=false;$('#micBtn').classList.remove('on');voice.fails.clear();updVids();
 }
 const voiceOn=()=>[...voice.pcs.values()].filter(v=>v.state==='connected').length;
 {
+  $('#camBtn').addEventListener('click',e=>{e.preventDefault();camToggle()});
   const mb=$('#micBtn');
   mb.addEventListener('pointerdown',e=>{e.preventDefault();try{mb.setPointerCapture(e.pointerId)}catch(_){}talk(true)});
   ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>mb.addEventListener(ev,()=>talk(false)));
@@ -2572,7 +2632,8 @@ function peerMsg(d){
   }else if(d.t==='pulse'&&Array.isArray(d.p)){pulseFx(+d.p[0],+d.p[1],+d.p[2],d.f);const r=remotes.get(d.f);if(r&&Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<120)shotSnd('monster')}
   else if(d.t==='dmg'&&d.to===myId())takeShot(d);
   else if(d.t==='rtc')rtcMsg(d);
-  else if(d.t==='talk'){const r=remotes.get(d.f);if(r){r.talk=!!d.on;setBadge(r)}}
+  else if(d.t==='talk'){const r=remotes.get(d.f);if(r){r.talk=!!d.on;setBadge(r);updVids()}}
+  else if(d.t==='cam'){const r=remotes.get(d.f);if(r){r.cam=!!d.on;updVids()}}
   else if(d.t==='kill'&&d.to===myId())showBanner(Tx().youKilled(nameOf(d.f)))
 }
 /* ---------- loop ---------- */
