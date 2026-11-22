@@ -1250,44 +1250,50 @@ function makeCar(type){
     box(.4,.2,.08,0xffffff,.75,2.3,1.96);box(.4,.2,.08,0xffffff,-.75,2.3,1.96);
     R.S={max:23,acc:19,turn:1.9,rad:1.8,cam:[14,7.5],bounce:1.5,armor:.7,crush:7};
   }else if(type==='robot'){
-    /* a robot truck: every part has a truck pose and a robot pose and slides between them */
-    const C=0xff8a1f,G=0x3a4250,S2=0xb9c2cc,parts=[],arms=[];
-    const part=(tp,rp,rr,d)=>{const o=new THREE.Group();body.add(o);parts.push({o,tp:new THREE.Vector3(...tp),rp:new THREE.Vector3(...rp),rr,d});return o};
+    /* a tall robot truck. Legs and arms hang from joints (hip, shoulder) so they can swing when it walks.
+       Every part has a truck pose and a robot pose and slides between them */
+    const C=0xff8a1f,G=0x3a4250,S2=0xb9c2cc,parts=[],arms=[],legs=[];
+    const part=(tp,tr,rp,rr,d)=>{const o=new THREE.Group();body.add(o);const P={o,tp:new THREE.Vector3(...tp),tr,rp:new THREE.Vector3(...rp),rr,d};parts.push(P);return P};
     for(const sx of [1,-1]){
-      /* legs: the back of the truck stands up, the rear end becomes the feet */
-      const leg=part([sx*.6,1.15,-1.3],[sx*.62,1.62,-.05],[-Math.PI/2,0,0],0);
-      box(1,1,2.6,G,0,0,0,leg);box(.04,.3,2.2,C,sx*.52,.12,0,leg);box(1.1,.5,.9,DARK,0,-.25,-1.15,leg);
-      box(.3,.15,.06,0xff3b30,0,.25,-1.31,leg);box(.9,.1,1.2,S2,0,.52,.4,leg);
-      wheel(sx*.62,-.4,.55,.42,0,S2,leg,-.6);wheel(sx*.62,-1.1,.55,.42,0,S2,leg,-.6);
+      /* leg, built hanging down from the hip; lying backwards it is the rear of the truck */
+      const P=part([sx*.6,1.2,-.2],[Math.PI/2,0,0],[sx*.66,3.4,0],[0,0,0],0),L=P.o;P.leg=sx;legs.push(P);
+      cyl(.3,.8,S2,0,0,0,'x',L);box(.72,1.25,.72,S2,0,-.72,0,L);
+      box(1.12,2.05,1.05,G,0,-2.3,0,L);box(1.0,.5,.32,G,0,-1.42,.46,L);
+      for(let i=0;i<3;i++)box(.62,.08,.06,DARK,0,-1.95-i*.3,.53,L);
+      box(.05,1.5,.34,C,sx*.57,-2.35,.18,L);
+      box(1.22,.45,1.6,DARK,0,-3.17,.25,L);box(.42,.07,.25,0xff3b30,0,-3.42,-.2,L);
+      wheel(sx*.5,.66,.55,.42,0,S2,L,-1.65);wheel(sx*.5,.66,.55,.42,0,S2,L,-2.85);
     }
-    /* the hood becomes the hips, the front wheels stay at the sides */
-    const hood=part([0,1.3,2.5],[0,2.75,.1],[0,0,0],.1);
+    /* hood = hips, front wheels at the sides */
+    const hood=part([0,1.3,2.5],[0,0,0],[0,3.85,.1],[0,0,0],.1).o;
     box(2.2,.95,1.2,C,0,0,0,hood);box(1.4,.66,.06,S2,0,-.05,.62,hood);for(let i=-2;i<=2;i++)box(1.36,.05,.08,G,0,-.05+i*.13,.64,hood);
     box(.36,.2,.06,LAMP,.88,-.2,.62,hood);box(.36,.2,.06,LAMP,-.88,-.2,.62,hood);box(2.4,.25,.3,S2,0,-.45,.7,hood);
-    wheel(1.3,-.2,.6,.5,1,S2,hood,-.7);wheel(-1.3,-.2,.6,.5,1,S2,hood,-.7);
-    /* the cab becomes the chest, the windows stay in front */
-    const cab=part([0,2.0,1.15],[0,4.0,0],[0,0,0],.22);
-    box(2.3,1.5,1.7,C,0,0,0,cab);box(2.2,.15,1.5,G,0,.82,-.05,cab);
-    box(1.9,.6,.06,GLASS,0,.25,.86,cab);box(.06,.5,.8,GLASS,1.16,.25,.25,cab);box(.06,.5,.8,GLASS,-1.16,.25,.25,cab);
-    const gem=box(.36,.36,.06,0xffd23f,0,-.4,.87,cab);gem.rotation.z=Math.PI/4;
-    cyl(.12,1.6,S2,1.0,.9,-.95,'y',cab);cyl(.12,1.6,S2,-1.0,.9,-.95,'y',cab);
-    /* arms: fuel tanks on the sides of the truck, cannons in the robot's hands */
+    wheel(1.38,-.2,.6,.5,1,S2,hood,-.7);wheel(-1.38,-.2,.6,.5,1,S2,hood,-.7);
+    /* cab = chest, with a narrow belly under it */
+    const cab=part([0,2.0,1.15],[0,0,0],[0,5.1,0],[0,0,0],.2).o;
+    box(2.5,1.55,1.6,C,0,0,0,cab);box(2.3,.15,1.4,G,0,.83,-.05,cab);box(1.5,.45,1.0,S2,0,-.98,-.05,cab);
+    box(.95,.55,.06,GLASS,.55,.28,.81,cab);box(.95,.55,.06,GLASS,-.55,.28,.81,cab);box(.1,.6,.08,G,0,.28,.82,cab);
+    box(.06,.5,.8,GLASS,1.26,.25,.2,cab);box(.06,.5,.8,GLASS,-1.26,.25,.2,cab);
+    const gem=box(.34,.34,.06,0xffd23f,0,-.42,.82,cab);gem.rotation.z=Math.PI/4;
+    cyl(.12,1.7,S2,1.0,.95,-.95,'y',cab);cyl(.12,1.7,S2,-1.0,.95,-.95,'y',cab);
+    /* arm, built hanging from the shoulder; lying forward it is a fuel tank on the side of the truck */
     for(const sx of [1,-1]){
-      const arm=part([sx*1.25,.95,.2],[sx*1.55,3.95,.55],[0,0,sx*Math.PI*2],.32);
-      cyl(.32,1.6,S2,0,0,0,'z',arm,16);cyl(.34,.1,G,0,0,.55,'z',arm,16);cyl(.34,.1,G,0,0,-.55,'z',arm,16);
-      box(.72,.72,.72,C,0,.12,-.75,arm);
-      const brl=new THREE.Group();brl.position.z=.1;arm.add(brl);
-      cyl(.13,1,G,0,0,0,'z',brl,10);cyl(.18,.22,DARK,0,0,.5,'z',brl,10);
-      const muzzle=new THREE.Object3D();muzzle.position.z=.66;brl.add(muzzle);
-      arms.push({brl,muzzle,rec:0});
+      const P=part([sx*1.25,1.0,-.95],[-Math.PI/2,0,0],[sx*1.68,5.45,0],[0,sx*Math.PI*2,0],.3),A=P.o;P.arm=sx;
+      box(.85,.8,.95,C,0,.05,0,A);box(.9,.12,1.0,G,0,.48,0,A);
+      cyl(.26,.8,S2,0,-.7,0,'y',A);cyl(.34,1.3,S2,0,-1.6,0,'y',A,16);cyl(.36,.1,G,0,-1.1,0,'y',A,16);cyl(.36,.1,G,0,-2.1,0,'y',A,16);
+      box(.48,.42,.48,G,0,-2.42,0,A);
+      const brl=new THREE.Group();A.add(brl);
+      cyl(.13,1.1,G,0,-.55,0,'y',brl,10);cyl(.19,.24,DARK,0,-1.12,0,'y',brl,10);
+      const muzzle=new THREE.Object3D();muzzle.position.y=-1.3;brl.add(muzzle);
+      arms.push({P,brl,muzzle,rec:0});
     }
-    /* the head hides inside the cab while driving */
-    const head=part([0,1.9,1.05],[0,5.15,.05],[0,0,0],.5);
+    /* head hides inside the cab while driving */
+    const head=part([0,1.9,1.05],[0,0,0],[0,6.2,.05],[0,0,0],.5).o;
     box(.75,.7,.7,G,0,0,0,head);box(.12,.26,.62,C,0,.45,0,head);box(.5,.14,.06,S2,0,-.2,.36,head);
     cyl(.16,.1,C,.42,.05,0,'x',head);cyl(.16,.1,C,-.42,.05,0,'x',head);
     const vis=new THREE.Mesh(new THREE.BoxGeometry(.62,.17,.06),new THREE.MeshBasicMaterial({color:0x6ff4ff}));vis.position.set(0,.08,.36);head.add(vis);
-    R.parts=parts;R.arms=arms;R.morph=0;R.mt=0;R.idle=0;R.side=0;
-    R.S={max:21,acc:17,turn:1.9,rad:1.6,cam:[14,7.5],armor:.75,robot:true};
+    Object.assign(R,{parts,arms,legs,morph:0,mt:0,idle:0,side:0,walk:0,ph:0,aim:0,aimT:0,walkT:0,walking:false});
+    R.S={max:21,acc:17,turn:1.9,rad:1.6,cam:[15,8],armor:.75,robot:true,badgeY:7.5};
     morphCar(R,0);
   }else{ /* fire truck */
     const C=0xe32b2b;
@@ -1314,26 +1320,46 @@ function makeCar(type){
 /* m = 0 truck … 1 robot; each part moves in its own slice of time so it looks like real folding */
 function morphCar(C,m){
   const sm=k=>{k=Math.max(0,Math.min(1,k));return k*k*(3-2*k)};
+  const sw=Math.sin(C.ph)*.5*C.walk;
   for(const P of C.parts){
     const e=sm((m-P.d)/.48);
     P.o.position.lerpVectors(P.tp,P.rp,e);
     /* parts hop up a little in the middle of the move, so they don't cut through each other */
     P.o.position.y+=Math.sin(e*Math.PI)*.5;
-    P.o.rotation.set(P.rr[0]*e,P.rr[1]*e,P.rr[2]*e);
+    let rx=P.tr[0]+(P.rr[0]-P.tr[0])*e;
+    if(P.leg)rx+=sw*P.leg*e;                                  /* legs step */
+    if(P.arm)rx+=(-sw*P.arm*.7*(1-C.aim)-Math.PI/2*C.aim)*e;  /* arms swing, or point forward to shoot */
+    P.o.rotation.set(rx,P.tr[1]+(P.rr[1]-P.tr[1])*e,P.tr[2]+(P.rr[2]-P.tr[2])*e);
+    /* the body bobs with every step; feet stay on the ground */
+    if(!P.leg)P.o.position.y-=Math.abs(sw)*.18*e;
   }
   const b=sm((m-.85)/.15);
-  for(const a of C.arms)a.brl.position.z=.1+b*1.05-a.rec*.35;
+  for(const a of C.arms)a.brl.position.y=-1.3-b*.95+a.rec*.3;
 }
 const transSnd=up=>{for(let i=0;i<6;i++)tone(up?260+i*110:880-i*110,.07,'square',.035,i*.13);noise(.9,.045,2600);tone(up?110:220,.9,'sawtooth',.035);tone(up?660:330,.12,'triangle',.06,.85)};
-/* my robot: stands up when the truck stops, folds back when I press gas */
+const stepSnd=()=>{tone(70,.16,'sine',.14);noise(.08,.05,500)};
+/* walking legs, arm aim and weapon kick: the same for my robot and friends' robots */
+function robotAnim(C,dt,v,steer,near){
+  const moving=C.morph>.95&&(Math.abs(v)>.3||Math.abs(steer)>.3);
+  C.walk+=((moving?1:0)-C.walk)*Math.min(1,dt*8);
+  if(moving){const old=C.ph;C.ph+=(Math.abs(v)>.3?Math.abs(v)*1.5:5)*dt;if(near&&Math.floor(old/Math.PI)!==Math.floor(C.ph/Math.PI))stepSnd()}
+  else C.ph+=(Math.round(C.ph/Math.PI)*Math.PI-C.ph)*Math.min(1,dt*6);
+  if(C.aimT>0)C.aimT-=dt;
+  C.aim+=((C.aimT>0?1:0)-C.aim)*Math.min(1,dt*9);
+  for(const a of C.arms)a.rec=Math.max(0,a.rec-dt*5);
+  morphCar(C,C.morph);
+}
+/* my robot: stands up when the truck stops. With gas it walks a few steps, then folds into the truck */
+const WALK_T=1.3;
 function robotTick(dt){
   const C=CAR,go=inp.u||inp.d;
   if(go)C.idle=0;else if(Math.abs(car.v)<.6)C.idle+=dt;
-  const mt=go?0:C.idle>.45?1:C.mt;
+  if(go&&C.mt&&C.morph>.95)C.walkT+=dt;else if(!go)C.walkT=0;
+  const mt=go?(C.mt&&C.walkT<WALK_T&&C.morph>.95?1:0):C.idle>.45?1:C.mt;
   if(mt!==C.mt){C.mt=mt;transSnd(mt)}
-  C.morph=Math.max(0,Math.min(1,C.morph+(mt?dt/1.1:-dt/.8)));
-  for(const a of C.arms)a.rec=Math.max(0,a.rec-dt*5);
-  morphCar(C,C.morph);
+  C.walking=go&&C.mt===1&&C.morph>.95;
+  C.morph=Math.max(0,Math.min(1,C.morph+(C.mt?dt/1.1:-dt/.8)));
+  robotAnim(C,dt,car.v,car.steer,true);
 }
 let CAR=makeCar(carType);scene.add(CAR.g);
 car.y=car.lastG=gnd(0,0);CAR.g.position.set(0,car.y,0);
@@ -1347,7 +1373,7 @@ const inp={u:0,d:0,l:0,r:0};
 let onRoadNow=false;
 function updCar(dt){
   const S=CAR.S,st=inp.l-inp.r;let thr=inp.u-inp.d;
-  if(S.robot){robotTick(dt);if(CAR.morph>.15)thr=0}
+  if(S.robot){robotTick(dt);if(CAR.morph>.15&&!CAR.walking)thr=0}
   if(dmgCool>0)dmgCool-=dt;
   onRoadNow=roadDist(car.x,car.z)<RW/2+.6;
   const inWater=car.y<-.2;
@@ -1356,6 +1382,7 @@ function updCar(dt){
   else if(thr<0)car.v-=(car.v>0?40:S.acc*.7)*dt;
   else car.v-=Math.sign(car.v)*Math.min(Math.abs(car.v),7*dt);
   car.v=Math.max(-9,car.v);
+  if(S.robot&&CAR.walking)car.v=Math.max(-2.5,Math.min(4,car.v));
   if(car.v>maxV)car.v=Math.max(maxV,car.v-25*dt);
   if(inWater&&Math.abs(car.v)>2&&Math.random()<dt*14){pv.set(car.x+rnd(-1.5,1.5),.2,car.z+rnd(-1.5,1.5));burst(pv,['#ffffff','#bfefff','#8fd6ff'],2,.45)}
   car.steer+=(st-car.steer)*Math.min(1,dt*8);
@@ -1451,7 +1478,7 @@ function carThumbs(){
     const m=makeCar(t);m.g.rotation.y=-.6;ts.add(m.g);
     const big=t==='monster'||t==='fire'||t==='tank';
     tc.position.set(7.5,big?5.2:4.2,9.5).multiplyScalar(big?1.18:1);tc.lookAt(0,big?1.6:1,0);
-    if(m.parts){morphCar(m,1);tc.position.set(7.5,4.4,9.5).multiplyScalar(1.02);tc.lookAt(0,2.8,0)}
+    if(m.parts){m.aim=1;morphCar(m,1);tc.position.set(7.5,4.8,9.5).multiplyScalar(1.2);tc.lookAt(0,3.3,0)}
     renderer.render(ts,tc);out[t]=cv.toDataURL('image/png');ts.remove(m.g);
   }
   renderer.setPixelRatio(pr);
@@ -2277,10 +2304,10 @@ function updRemotes(dt){
     r.cur.h+=Math.atan2(Math.sin(t[3]-r.cur.h),Math.cos(t[3]-r.cur.h))*k;r.cur.p+=(t[4]-r.cur.p)*k;r.cur.ro+=(t[5]-r.cur.ro)*k;
     C.g.position.set(r.cur.x,r.cur.y,r.cur.z);C.g.rotation.set(r.cur.p,r.cur.h,r.cur.ro);
     for(const w of C.wheels){w.spin.rotation.x+=t[7]*dt/w.r;if(w.f)w.pivot.rotation.y=t[6]*.45}
-    r.badge.position.set(r.cur.x,r.cur.y+(C.S.cam[1]>7?6.6:5.2),r.cur.z);
+    r.badge.position.set(r.cur.x,r.cur.y+(C.S.badgeY||(C.S.cam[1]>7?6.6:5.2)),r.cur.z);
     if(C.blink.length){const on=Math.floor(time*5)%2;C.blink[0].emissive.setHex(on?0xcc1010:0);C.blink[1].emissive.setHex(on?0:0x1040cc)}
     if(C.turret){C.recoil=Math.max(0,(C.recoil||0)-dt*3);C.barrel.position.z=1.1-C.recoil*.7;C.turret.rotation.y+=Math.atan2(Math.sin((t[8]||0)-C.turret.rotation.y),Math.cos((t[8]||0)-C.turret.rotation.y))*k}
-    if(C.parts){C.morph=Math.max(0,Math.min(1,C.morph+(C.mt?dt/1.1:-dt/.8)));for(const a of C.arms)a.rec=Math.max(0,a.rec-dt*5);morphCar(C,C.morph)}
+    if(C.parts){C.morph=Math.max(0,Math.min(1,C.morph+(C.mt?dt/1.1:-dt/.8)));robotAnim(C,dt,t[7],t[6],Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<40)}
     if(r.s){r.smT-=dt;if(r.smT<=0){r.smT=r.s===1?.3:.15;carSmoke(r.cur.x,r.cur.y,r.cur.z,r.cur.h,r.s)}}
   }
 }
@@ -2392,7 +2419,7 @@ function fire(){
   if(W.pulse){shotSnd(w);pulseFx(car.x,car.y,car.z,myId());netSend({t:'pulse',p:[r2(car.x),r2(car.y),r2(car.z)]});return}
   let yaw=car.h,ox,oy,oz;
   if(CAR.turret){yaw=car.h+CAR.turret.rotation.y;CAR.recoil=1;CAR.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
-  else if(CAR.arms){const a=CAR.arms[CAR.side^=1];a.rec=1;a.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
+  else if(CAR.arms){CAR.aimT=1.6;if(CAR.aim<.9){CAR.aim=1;morphCar(CAR,CAR.morph);CAR.g.updateMatrixWorld(true)}const a=CAR.arms[CAR.side^=1];a.rec=1;a.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
   else{const fx=Math.sin(car.h),fz=Math.cos(car.h);ox=car.x+fx*2.4;oy=car.y+(CAR.S.cam[1]>7?3.2:1.8);oz=car.z+fz*2.4}
   let pitch=W.water?.12:0;
   const tg=aimTarget(ox,oz,yaw,W.rocket?.7:.26)||(CAR.turret?aimTarget(car.x,car.z,car.h):null);
@@ -2714,7 +2741,7 @@ function peerMsg(d){
     spawnShot(+d.p[0],+d.p[1],+d.p[2],+d.v[0],+d.v[1],+d.v[2],d.w,false,d.g||null);
     const r=remotes.get(d.f);if(r&&Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<120)shotSnd(d.w);
     if(r&&r.C.turret)r.C.recoil=1;
-    if(r&&r.C.arms){const a=r.C.arms[r.C.side^=1];a.rec=1}
+    if(r&&r.C.arms){r.C.aimT=1.6;const a=r.C.arms[r.C.side^=1];a.rec=1}
   }else if(d.t==='pulse'&&Array.isArray(d.p)){pulseFx(+d.p[0],+d.p[1],+d.p[2],d.f);const r=remotes.get(d.f);if(r&&Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<120)shotSnd('monster')}
   else if(d.t==='dmg'&&d.to===myId())takeShot(d);
   else if(d.t==='rtc')rtcMsg(d);
