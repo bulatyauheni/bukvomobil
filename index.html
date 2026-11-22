@@ -1795,13 +1795,22 @@ function setTarget(li){
   const L=letters[li];if(!L)return;
   target=L.d;lastT=target;$('#tgtL').textContent=target[0];hintT=0;hintOn=false;say(Tx().ask(target));
 }
+/* the letter to find lands somewhere on the whole island, far from every player */
+function farSpot(L){
+  const P=players(),c=[];
+  for(let i=0;i<900&&c.length<60;i++){
+    const a=rnd(0,TAU),r=Math.sqrt(Math.random())*R*.9,x=Math.cos(a)*r,z=Math.sin(a)*r;
+    const h=goodSpot(x,z,L);if(h===null)continue;
+    const d=P.length?Math.min(...P.map(p=>Math.hypot(p.x-x,p.z-z))):99;
+    if(d<40)continue;c.push({x,z,h,d});
+  }
+  if(!c.length)return null;
+  c.sort((a,b)=>b.d-a.d);return pick(c.slice(0,Math.max(1,Math.ceil(c.length/4))));
+}
 function nextTarget(){
-  const pool=letters.filter(l=>l.d!==lastT&&l.state!=='fly');if(!pool.length){nextT=1;return}
-  const L=pick(pool),P=players();
-  if(mode==='race'&&P.length>1&&L.state!=='fall'){
-    const cx=P.reduce((a,p)=>a+p.x,0)/P.length,cz=P.reduce((a,p)=>a+p.z,0)/P.length;
-    const s=spotNear(cx,cz,null,25,90,L)||spotNear(cx,cz,null,25,160,L);if(s)drop(L,s);else if(!dropNear(L,35,65)){nextT=1;return}
-  }else if(L.state==='off'||(L.state!=='fall'&&!P.some(p=>Math.hypot(L.x-p.x,L.z-p.z)<110))){if(!dropNear(L,35,65)){nextT=1;return}}
+  const pool=letters.filter(l=>l.d!==lastT&&l.state!=='fly'&&l.state!=='fall');if(!pool.length){nextT=1;return}
+  const L=pick(pool),s=farSpot(L);
+  if(s)drop(L,s);else if(!dropNear(L,35,65)){nextT=1;return}
   setTarget(L.i);netSend({t:'target',li:L.i});
 }
 function updFind(dt){
@@ -2659,7 +2668,7 @@ function frame(now){
 applyTexts();
 const fontReady=document.fonts&&document.fonts.load?Promise.race([document.fonts.load('900 100px Nunito','АБВ'),new Promise(r=>setTimeout(r,2500))]):Promise.resolve();
 fontReady.catch(()=>{}).then(()=>{if(builtLang!==lang)buildLetters()});
-if(/[?&]debug/.test(location.search))window.__g={boomFx,get hdB(){return hdB},rustle,car,PADS,BRIDGES,RAMPS,get letters(){return letters},gnd,hgt,snap:()=>{updCar(0);updCam(0,true)},step:dt=>updCar(dt),ltick:dt=>{time+=dt;updLetters(dt)},inp,obst,fx:dt=>{time+=dt;updFalling(dt);updDebris(dt);updParts(dt);updCarDamage(dt);updCam(dt)},horn:()=>{hornCool=0;horn()},get hp(){return car.hp},get dead(){return carDead},get CAR(){return CAR},get net(){return net},remotes,hit:(i,nx,nz)=>hit(letters[i],nx,nz),smash:i=>smash(obst[i],1,0),get mode(){return mode},fire:()=>{fireCool=0;fire()},get shots(){return shots},board,takeShot,get spawnT(){return spawnT},get zaps(){return zaps},voice,get myName(){return myName},get gfx(){return {pref:gfxPref,lvl:gfxLvl,pr:renderer.getPixelRatio(),sh:sun.shadow.mapSize.x}},hostDrop:id=>hostDrop(id),get eng(){return eng},set spawnT(v){spawnT=v},get score(){return score},get target(){return target},genMs:Math.round(performance.now()-T0)};
+if(/[?&]debug/.test(location.search))window.__g={nextTarget,farSpot,boomFx,get hdB(){return hdB},rustle,car,PADS,BRIDGES,RAMPS,get letters(){return letters},gnd,hgt,snap:()=>{updCar(0);updCam(0,true)},step:dt=>updCar(dt),ltick:dt=>{time+=dt;updLetters(dt)},inp,obst,fx:dt=>{time+=dt;updFalling(dt);updDebris(dt);updParts(dt);updCarDamage(dt);updCam(dt)},horn:()=>{hornCool=0;horn()},get hp(){return car.hp},get dead(){return carDead},get CAR(){return CAR},get net(){return net},remotes,hit:(i,nx,nz)=>hit(letters[i],nx,nz),smash:i=>smash(obst[i],1,0),get mode(){return mode},fire:()=>{fireCool=0;fire()},get shots(){return shots},board,takeShot,get spawnT(){return spawnT},get zaps(){return zaps},voice,get myName(){return myName},get gfx(){return {pref:gfxPref,lvl:gfxLvl,pr:renderer.getPixelRatio(),sh:sun.shadow.mapSize.x}},hostDrop:id=>hostDrop(id),get eng(){return eng},set spawnT(v){spawnT=v},get score(){return score},get target(){return target},genMs:Math.round(performance.now()-T0)};
 requestAnimationFrame(frame);
 }
 </script>
