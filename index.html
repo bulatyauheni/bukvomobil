@@ -1292,7 +1292,7 @@ function makeCar(type){
     box(.75,.7,.7,G,0,0,0,head);box(.12,.26,.62,C,0,.45,0,head);box(.5,.14,.06,S2,0,-.2,.36,head);
     cyl(.16,.1,C,.42,.05,0,'x',head);cyl(.16,.1,C,-.42,.05,0,'x',head);
     const vis=new THREE.Mesh(new THREE.BoxGeometry(.62,.17,.06),new THREE.MeshBasicMaterial({color:0x6ff4ff}));vis.position.set(0,.08,.36);head.add(vis);
-    Object.assign(R,{parts,arms,legs,morph:0,mt:0,idle:0,side:0,walk:0,ph:0,aim:0,aimT:0,walkT:0,walking:false});
+    Object.assign(R,{faceH:0,faceT:0,parts,arms,legs,morph:0,mt:0,idle:0,side:0,walk:0,ph:0,aim:0,aimT:0,walkT:0,walking:false});
     R.S={max:21,acc:17,turn:1.9,rad:1.6,cam:[15,8],armor:.75,robot:true,badgeY:7.5};
     morphCar(R,0);
   }else{ /* fire truck */
@@ -1358,6 +1358,8 @@ function robotTick(dt){
   const mt=go?(C.mt&&C.walkT<WALK_T&&C.morph>.95?1:0):C.idle>.45?1:C.mt;
   if(mt!==C.mt){C.mt=mt;transSnd(mt)}
   C.walking=go&&C.mt===1&&C.morph>.95;
+  /* auto-aim: the robot turns to face what it shoots at */
+  if(C.faceT>0){C.faceT-=dt;if(!go&&!inp.l&&!inp.r&&C.morph>.95){const d=Math.atan2(Math.sin(C.faceH-car.h),Math.cos(C.faceH-car.h));car.h+=Math.sign(d)*Math.min(Math.abs(d),7*dt)}}
   C.morph=Math.max(0,Math.min(1,C.morph+(C.mt?dt/1.1:-dt/.8)));
   robotAnim(C,dt,car.v,car.steer,true);
 }
@@ -2422,7 +2424,12 @@ function fire(){
   else if(CAR.arms){CAR.aimT=1.6;if(CAR.aim<.9){CAR.aim=1;morphCar(CAR,CAR.morph);CAR.g.updateMatrixWorld(true)}const a=CAR.arms[CAR.side^=1];a.rec=1;a.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
   else{const fx=Math.sin(car.h),fz=Math.cos(car.h);ox=car.x+fx*2.4;oy=car.y+(CAR.S.cam[1]>7?3.2:1.8);oz=car.z+fz*2.4}
   let pitch=W.water?.12:0;
-  const tg=aimTarget(ox,oz,yaw,W.rocket?.7:.26)||(CAR.turret?aimTarget(car.x,car.z,car.h):null);
+  const tg=CAR.arms?aimTarget(car.x,car.z,car.h,1.1,110):aimTarget(ox,oz,yaw,W.rocket?.7:.26)||(CAR.turret?aimTarget(car.x,car.z,car.h):null);
+  /* the robot also aims at letters close by (not in the race: there you must reach them) */
+  let tl=null;
+  if(CAR.arms&&!tg&&mode!=='race'){let bs=1e9;for(const L of letters){if(L.state!=='idle')continue;const dx=L.x-car.x,dz=L.z-car.z,d=Math.hypot(dx,dz);if(d>55||d<2)continue;const da=Math.abs(Math.atan2(Math.sin(Math.atan2(dx,dz)-car.h),Math.cos(Math.atan2(dx,dz)-car.h)));if(da<1.1&&da*20+d<bs){bs=da*20+d;tl=L}}}
+  if(CAR.arms&&(tg||tl)){const T=tg?tg.r.cur:tl;CAR.faceH=Math.atan2(T.x-car.x,T.z-car.z);CAR.faceT=1.2;
+    if(tl){yaw=Math.atan2(tl.x-ox,tl.z-oz);pitch=Math.atan2(tl.base+BS*.5-oy,Math.hypot(tl.x-ox,tl.z-oz))}}
   if(tg&&CAR.turret){CAR.turret.rotation.y=Math.atan2(tg.r.cur.x-car.x,tg.r.cur.z-car.z)-car.h;CAR.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
   if(tg&&!W.rocket){yaw=Math.atan2(tg.r.cur.x-ox,tg.r.cur.z-oz);const tt=tg.d/W.sp;pitch=Math.atan2(tg.r.cur.y+1.2-oy+W.g*tt*tt/2,tg.d)}
   if(W.spread)yaw+=rnd(-W.spread,W.spread);
@@ -2517,7 +2524,7 @@ function updShots(dt){
         if(L.state!=='idle'&&L.state!=='wob')continue;
         if(Math.abs(L.x-s.x)<BS*.6&&Math.abs(L.z-s.z)<BS*.6&&s.y<L.base+BS+1){
           end=true;shotImpact(s);
-          if(s.mine&&s.w==='tank'&&mode!=='race'&&L.state==='idle'){const d=Math.hypot(L.x-car.x,L.z-car.z)||1;hit(L,(L.x-car.x)/d,(L.z-car.z)/d,true)}
+          if(s.mine&&(s.w==='tank'||s.w==='robot')&&mode!=='race'&&L.state==='idle'){const d=Math.hypot(L.x-car.x,L.z-car.z)||1;hit(L,(L.x-car.x)/d,(L.z-car.z)/d,true)}
           break;
         }
       }
