@@ -1252,7 +1252,7 @@ function makeCar(type){
   }else if(type==='robot'){
     /* a tall robot truck. Legs and arms hang from joints (hip, shoulder) so they can swing when it walks.
        Every part has a truck pose and a robot pose and slides between them */
-    const C=0xff8a1f,G=0x3a4250,S2=0xb9c2cc,parts=[],arms=[],legs=[];
+    const C=0xd8262b,G=0x3a4250,S2=0xb9c2cc,parts=[],arms=[],legs=[];
     const part=(tp,tr,rp,rr,d)=>{const o=new THREE.Group();body.add(o);const P={o,tp:new THREE.Vector3(...tp),tr,rp:new THREE.Vector3(...rp),rr,d};parts.push(P);return P};
     for(const sx of [1,-1]){
       /* leg, built hanging down from the hip; lying backwards it is the rear of the truck */
