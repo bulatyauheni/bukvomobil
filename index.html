@@ -65,7 +65,7 @@ h1 span.sp{width:.4em;box-shadow:none}
 #go{width:100%;margin-top:18px;background:var(--red);color:#fff;font-size:26px;font-weight:900;padding:12px;border-radius:20px;box-shadow:0 6px 0 #b8322a}
 #go:active{transform:translateY(4px);box-shadow:0 2px 0 #b8322a}
 .help{font-size:14px;opacity:.7;margin:12px 0 0;text-align:center}
-.cars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.cars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
 .car{padding:4px 4px 8px;background:#eef6ff;border:3px solid transparent;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:14px;font-weight:900;line-height:1.15;text-align:center}
 .car img{width:100%;aspect-ratio:8/5;object-fit:contain;display:block;border-radius:12px}
 .car .wp{font-size:11px;font-weight:700;opacity:.75}
@@ -247,9 +247,9 @@ const RU=[['А','а','арбуз','🍉'],['Б','бэ','банан','🍌'],['В
 const EN=[['A','ay','apple','🍎'],['B','bee','bear','🐻'],['C','see','cat','🐱'],['D','dee','dog','🐶'],['E','ee','egg','🥚'],['F','ef','fish','🐟'],['G','gee','grapes','🍇'],['H','aitch','house','🏠'],['I','eye','ice cream','🍦'],['J','jay','juice','🧃'],['K','kay','kite','🪁'],['L','el','lion','🦁'],['M','em','moon','🌙'],['N','en','nose','👃'],['O','oh','orange','🍊'],['P','pee','pig','🐷'],['Q','cue','queen','👑'],['R','ar','rocket','🚀'],['S','ess','sun','☀️'],['T','tee','tiger','🐯'],['U','you','umbrella','☂️'],['V','vee','violin','🎻'],['W','double you','whale','🐳'],['X','ex','box','📦',1],['Y','why','yo-yo','🪀'],['Z','zee','zebra','🦓']];
 
 const T={
- ru:{title:'Буквомобиль',langL:'Буквы',modeL:'Режим',free:'Катаемся',freeD:'Сбивай любые буквы и слушай, как они звучат',find:'Найди букву',findD:'Голос загадывает букву — найди её на острове и сбей',go:'Поехали!',help:'Стрелки или WASD — руль и газ, пробел — огонь, H — сигнал, V — говорить. На планшете — кнопки на экране.',carL:'Машина',voiceL:'Голос',listen:'Послушать',noVoice:'Голос не найден',test:'Привет! Поехали искать буквы!',car_gelik:'Гелик',car_sport:'Спорткар',car_tank:'Танк',car_monster:'Монстр-трак',car_fire:'Пожарная',wp_tank:'💥 пушка',wp_gelik:'✴️ пулемёт',wp_sport:'🚀 ракеты',wp_monster:'⚡ молния',wp_fire:'💧 водомёт',findL:'Найди',got:'Собрано',gfxL:'Графика',gAuto:'Авто',gLow:'Быстро',gMid:'Красиво',gHigh:'Супер',race:'Гонка',raceD:'Все ищут одну букву. Кто первым соберёт 10 — победил! Можно стрелять 💥',youWin:'Ты победил! 🏆',winMsg:n=>`Победил ${n}! 🏆`,gotIt:n=>`${n} нашёл!`,killedYou:n=>`Тебя подбил ${n}`,youKilled:n=>`Ты подбил: ${n}!`,newRound:'Новый раунд!',netL:'Играть вместе',host:'Создать игру',join:'Присоединиться',connect:'Подключиться',leave:'Выйти',code:'Код игры',players:'Игроков',connecting:'Подключаюсь…',hostHint:'набери его на другом устройстве',youAre:n=>`Ты игрок ${n}`,followHost:'Буквы и режим выбирает главный.',joinedMsg:n=>`${n} с нами!`,leftMsg:n=>`${n} ушёл`,pl:n=>`Игрок ${n}`,nameL:'Твоё имя',noMic:'Нет доступа к микрофону. Разреши его или открой игру в Chrome',micFile:'Микрофон не работает, когда игра открыта из файла. Открой её по ссылке https:// в Chrome',micDenied:'Микрофон запрещён. Нажми на замочек слева от адреса → Разрешения → Микрофон → Разрешить, потом обнови страницу',micNone:'Микрофон не найден',micBusy:'Микрофон занят другим приложением (звонок, запись?)',camFile:'Камера работает только по ссылке https:// в Chrome',camDenied:'Камера запрещена. Нажми на замочек слева от адреса → Разрешения → Камера → Разрешить, потом обнови страницу',camNone:'Камера не найдена',camBusy:'Камера занята другим приложением',voiceN:n=>`🎙️ голос с ${n}`,lostMsg:'Связь потеряна — играем дальше одни',notFound:'Сервер связи доступен, но игра с этим кодом не ответила. Проверь код и что на другом устройстве нажато «Создать игру» и экран не погас',badCode:'Нужен код из 4 цифр',netFail:'Не достучаться до сервера связи. Попробуй другой интернет (Wi-Fi или мобильный) или открой файл в Chrome',netNoLib:'Не загрузилась библиотека связи. Проверь интернет или открой файл в Chrome',verMsg:'Разные версии игры — отправь новый файл на все устройства',fullMsg:'В игре уже 4 игрока',boomT:'Бабах! Машина сломалась',again:'Поехали снова!',boomSay:'Бабах! Машина сломалась. Поехали снова!',hit:'Сбито',hint:'Подсказка',menu:'Меню',voice:'ru-RU',isIt:'Это',
+ ru:{title:'Буквомобиль',langL:'Буквы',modeL:'Режим',free:'Катаемся',freeD:'Сбивай любые буквы и слушай, как они звучат',find:'Найди букву',findD:'Голос загадывает букву — найди её на острове и сбей',go:'Поехали!',help:'Стрелки или WASD — руль и газ, пробел — огонь, H — сигнал, V — говорить. На планшете — кнопки на экране.',carL:'Машина',voiceL:'Голос',listen:'Послушать',noVoice:'Голос не найден',test:'Привет! Поехали искать буквы!',car_gelik:'Гелик',car_sport:'Спорткар',car_tank:'Танк',car_monster:'Монстр-трак',car_fire:'Пожарная',car_robot:'Робот-тягач',wp_robot:'🤖 бластеры',wp_tank:'💥 пушка',wp_gelik:'✴️ пулемёт',wp_sport:'🚀 ракеты',wp_monster:'⚡ молния',wp_fire:'💧 водомёт',findL:'Найди',got:'Собрано',gfxL:'Графика',gAuto:'Авто',gLow:'Быстро',gMid:'Красиво',gHigh:'Супер',race:'Гонка',raceD:'Все ищут одну букву. Кто первым соберёт 10 — победил! Можно стрелять 💥',youWin:'Ты победил! 🏆',winMsg:n=>`Победил ${n}! 🏆`,gotIt:n=>`${n} нашёл!`,killedYou:n=>`Тебя подбил ${n}`,youKilled:n=>`Ты подбил: ${n}!`,newRound:'Новый раунд!',netL:'Играть вместе',host:'Создать игру',join:'Присоединиться',connect:'Подключиться',leave:'Выйти',code:'Код игры',players:'Игроков',connecting:'Подключаюсь…',hostHint:'набери его на другом устройстве',youAre:n=>`Ты игрок ${n}`,followHost:'Буквы и режим выбирает главный.',joinedMsg:n=>`${n} с нами!`,leftMsg:n=>`${n} ушёл`,pl:n=>`Игрок ${n}`,nameL:'Твоё имя',noMic:'Нет доступа к микрофону. Разреши его или открой игру в Chrome',micFile:'Микрофон не работает, когда игра открыта из файла. Открой её по ссылке https:// в Chrome',micDenied:'Микрофон запрещён. Нажми на замочек слева от адреса → Разрешения → Микрофон → Разрешить, потом обнови страницу',micNone:'Микрофон не найден',micBusy:'Микрофон занят другим приложением (звонок, запись?)',camFile:'Камера работает только по ссылке https:// в Chrome',camDenied:'Камера запрещена. Нажми на замочек слева от адреса → Разрешения → Камера → Разрешить, потом обнови страницу',camNone:'Камера не найдена',camBusy:'Камера занята другим приложением',voiceN:n=>`🎙️ голос с ${n}`,lostMsg:'Связь потеряна — играем дальше одни',notFound:'Сервер связи доступен, но игра с этим кодом не ответила. Проверь код и что на другом устройстве нажато «Создать игру» и экран не погас',badCode:'Нужен код из 4 цифр',netFail:'Не достучаться до сервера связи. Попробуй другой интернет (Wi-Fi или мобильный) или открой файл в Chrome',netNoLib:'Не загрузилась библиотека связи. Проверь интернет или открой файл в Chrome',verMsg:'Разные версии игры — отправь новый файл на все устройства',fullMsg:'В игре уже 4 игрока',boomT:'Бабах! Машина сломалась',again:'Поехали снова!',boomSay:'Бабах! Машина сломалась. Поехали снова!',hit:'Сбито',hint:'Подсказка',menu:'Меню',voice:'ru-RU',isIt:'Это',
   phrase:d=>d[4]?`${d[1]}. Как в слове ${d[2]}.`:`${d[1]}. ${d[2]}!`,ask:d=>`Найди букву ${d[1]}!`,wrong:(d,t)=>`Это ${d[1]}. Ищи ${t[1]}!`,good:['Молодец!','Отлично!','Супер!','Здорово!','Ура!']},
- en:{title:'Alphabet Drive',langL:'Letters',modeL:'Mode',free:'Free ride',freeD:'Bump into any letter and hear how it sounds',find:'Find the letter',findD:'The voice picks a letter — find it on the island and hit it',go:"Let's go!",help:'Arrow keys or WASD to drive, Space to shoot, H to honk, V to talk. On a tablet use the buttons on screen.',carL:'Car',voiceL:'Voice',listen:'Listen',noVoice:'No voice found',test:"Hi! Let's go find some letters!",car_gelik:'G-Wagon',car_sport:'Sports car',car_tank:'Tank',car_monster:'Monster truck',car_fire:'Fire truck',wp_tank:'💥 cannon',wp_gelik:'✴️ machine gun',wp_sport:'🚀 rockets',wp_monster:'⚡ lightning',wp_fire:'💧 water cannon',findL:'Find',got:'Found',gfxL:'Graphics',gAuto:'Auto',gLow:'Fast',gMid:'Nice',gHigh:'Super',race:'Race',raceD:'Everyone hunts the same letter. First to collect 10 wins! You can shoot 💥',youWin:'You win! 🏆',winMsg:n=>`${n} wins! 🏆`,gotIt:n=>`${n} got it!`,killedYou:n=>`${n} knocked you out`,youKilled:n=>`You knocked out ${n}!`,newRound:'New round!',netL:'Play together',host:'Create game',join:'Join',connect:'Connect',leave:'Leave',code:'Game code',players:'Players',connecting:'Connecting…',hostHint:'type it on the other device',youAre:n=>`You are player ${n}`,followHost:'The host picks letters and mode.',joinedMsg:n=>`${n} joined!`,leftMsg:n=>`${n} left`,pl:n=>`Player ${n}`,nameL:'Your name',noMic:'No microphone access. Allow it or open the game in Chrome',micFile:'The microphone does not work when the game is opened from a file. Open it from an https:// link in Chrome',micDenied:'Microphone is blocked. Tap the lock left of the address → Permissions → Microphone → Allow, then reload',micNone:'No microphone found',micBusy:'The microphone is busy in another app (a call?)',camFile:'The camera works only from an https:// link in Chrome',camDenied:'Camera is blocked. Tap the lock left of the address → Permissions → Camera → Allow, then reload',camNone:'No camera found',camBusy:'The camera is busy in another app',voiceN:n=>`🎙️ voice with ${n}`,lostMsg:'Connection lost — playing alone now',notFound:'The server works, but no game answered with this code. Check the code and that the other device pressed “Create game”',badCode:'The code has 4 digits',netFail:'Cannot reach the connection server. Try another network or open the file in Chrome',netNoLib:'No internet — playing together is not available',verMsg:'Different game versions — send the new file to every device',fullMsg:'This game already has 4 players',boomT:'Boom! The car broke',again:'Drive again!',boomSay:'Boom! The car broke. Let us drive again!',hit:'Hits',hint:'Hint',menu:'Menu',voice:'en-US',isIt:"That's",
+ en:{title:'Alphabet Drive',langL:'Letters',modeL:'Mode',free:'Free ride',freeD:'Bump into any letter and hear how it sounds',find:'Find the letter',findD:'The voice picks a letter — find it on the island and hit it',go:"Let's go!",help:'Arrow keys or WASD to drive, Space to shoot, H to honk, V to talk. On a tablet use the buttons on screen.',carL:'Car',voiceL:'Voice',listen:'Listen',noVoice:'No voice found',test:"Hi! Let's go find some letters!",car_gelik:'G-Wagon',car_sport:'Sports car',car_tank:'Tank',car_monster:'Monster truck',car_fire:'Fire truck',car_robot:'Robo truck',wp_robot:'🤖 blasters',wp_tank:'💥 cannon',wp_gelik:'✴️ machine gun',wp_sport:'🚀 rockets',wp_monster:'⚡ lightning',wp_fire:'💧 water cannon',findL:'Find',got:'Found',gfxL:'Graphics',gAuto:'Auto',gLow:'Fast',gMid:'Nice',gHigh:'Super',race:'Race',raceD:'Everyone hunts the same letter. First to collect 10 wins! You can shoot 💥',youWin:'You win! 🏆',winMsg:n=>`${n} wins! 🏆`,gotIt:n=>`${n} got it!`,killedYou:n=>`${n} knocked you out`,youKilled:n=>`You knocked out ${n}!`,newRound:'New round!',netL:'Play together',host:'Create game',join:'Join',connect:'Connect',leave:'Leave',code:'Game code',players:'Players',connecting:'Connecting…',hostHint:'type it on the other device',youAre:n=>`You are player ${n}`,followHost:'The host picks letters and mode.',joinedMsg:n=>`${n} joined!`,leftMsg:n=>`${n} left`,pl:n=>`Player ${n}`,nameL:'Your name',noMic:'No microphone access. Allow it or open the game in Chrome',micFile:'The microphone does not work when the game is opened from a file. Open it from an https:// link in Chrome',micDenied:'Microphone is blocked. Tap the lock left of the address → Permissions → Microphone → Allow, then reload',micNone:'No microphone found',micBusy:'The microphone is busy in another app (a call?)',camFile:'The camera works only from an https:// link in Chrome',camDenied:'Camera is blocked. Tap the lock left of the address → Permissions → Camera → Allow, then reload',camNone:'No camera found',camBusy:'The camera is busy in another app',voiceN:n=>`🎙️ voice with ${n}`,lostMsg:'Connection lost — playing alone now',notFound:'The server works, but no game answered with this code. Check the code and that the other device pressed “Create game”',badCode:'The code has 4 digits',netFail:'Cannot reach the connection server. Try another network or open the file in Chrome',netNoLib:'No internet — playing together is not available',verMsg:'Different game versions — send the new file to every device',fullMsg:'This game already has 4 players',boomT:'Boom! The car broke',again:'Drive again!',boomSay:'Boom! The car broke. Let us drive again!',hit:'Hits',hint:'Hint',menu:'Menu',voice:'en-US',isIt:"That's",
   phrase:d=>d[4]?`${d[1]}, like in ${d[2]}.`:`${d[1]}. ${d[2]}!`,ask:d=>`Find the letter ${d[1]}!`,wrong:(d,t)=>`That's ${d[1]}. Find ${t[1]}!`,good:['Well done!','Great job!','Super!','Awesome!','Yay!']}
 };
 
@@ -260,7 +260,7 @@ const Tx=()=>T[lang];
 let prefs={};
 try{prefs=JSON.parse(localStorage.getItem('bukvomobil')||'{}')||{}}catch(e){prefs={}}
 if(!prefs.voice||typeof prefs.voice!=='object')prefs.voice={};
-const CAR_LIST=['gelik','sport','tank','monster','fire'];
+const CAR_LIST=['gelik','sport','tank','monster','fire','robot'];
 let carType=CAR_LIST.includes(prefs.car)?prefs.car:'gelik';
 if(prefs.lang==='en')lang='en';if(prefs.mode==='find'||prefs.mode==='race')mode=prefs.mode;
 function savePrefs(){try{localStorage.setItem('bukvomobil',JSON.stringify({lang,mode,car:carType,voice:prefs.voice,name:prefs.name||'',gfx:prefs.gfx??'auto'}))}catch(e){}}
@@ -1185,13 +1185,13 @@ function makeCar(type){
   const wheels=[],blink=[],R={g,body,wheels,blink,type};
   const box=(w,h,d,c,x,y,z,par)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),typeof c==='number'?Mc(c):c);o.position.set(x,y,z);o.castShadow=true;(par||body).add(o);return o};
   const cyl=(r,len,c,x,y,z,axis,par,seg)=>{const geo=new THREE.CylinderGeometry(r,r,len,seg||14);if(axis==='x')geo.rotateZ(Math.PI/2);if(axis==='z')geo.rotateX(Math.PI/2);const o=new THREE.Mesh(geo,Mc(c));o.position.set(x,y,z);o.castShadow=true;(par||body).add(o);return o};
-  const wheel=(x,z,r,wid,f,hub)=>{
-    const pivot=new THREE.Group(),spin=new THREE.Group();pivot.position.set(x,r,z);pivot.add(spin);
+  const wheel=(x,z,r,wid,f,hub,par,y)=>{
+    const pivot=new THREE.Group(),spin=new THREE.Group();pivot.position.set(x,y??r,z);pivot.add(spin);
     const wg=new THREE.CylinderGeometry(r,r,wid,16);wg.rotateZ(Math.PI/2);const w=new THREE.Mesh(wg,Mc(DARK));w.castShadow=true;
     const hg=new THREE.CylinderGeometry(r*.45,r*.45,wid+.04,8);hg.rotateZ(Math.PI/2);
     const tread=new THREE.BoxGeometry(wid+.02,r*.25,r*.25);tread.translate(0,r*.92,0);
     spin.add(w,new THREE.Mesh(hg,Mc(hub||CHROME)),new THREE.Mesh(tread,Mc(0x33414f)));
-    g.add(pivot);wheels.push({pivot,spin,f,r});
+    (par||g).add(pivot);wheels.push({pivot,spin,f,r});
   };
   const quad=(xs,zs,r,wid,hub)=>{for(const x of xs)for(const [z,f] of zs)wheel(x,z,r,wid,f,hub)};
   if(type==='gelik'){
@@ -1249,6 +1249,46 @@ function makeCar(type){
     box(2.4,.32,.32,DARK,0,1.85,2.05);box(2.4,.32,.32,DARK,0,1.85,-2.05);
     box(.4,.2,.08,0xffffff,.75,2.3,1.96);box(.4,.2,.08,0xffffff,-.75,2.3,1.96);
     R.S={max:23,acc:19,turn:1.9,rad:1.8,cam:[14,7.5],bounce:1.5,armor:.7,crush:7};
+  }else if(type==='robot'){
+    /* a robot truck: every part has a truck pose and a robot pose and slides between them */
+    const C=0xff8a1f,G=0x3a4250,S2=0xb9c2cc,parts=[],arms=[];
+    const part=(tp,rp,rr,d)=>{const o=new THREE.Group();body.add(o);parts.push({o,tp:new THREE.Vector3(...tp),rp:new THREE.Vector3(...rp),rr,d});return o};
+    for(const sx of [1,-1]){
+      /* legs: the back of the truck stands up, the rear end becomes the feet */
+      const leg=part([sx*.6,1.15,-1.3],[sx*.62,1.62,-.05],[-Math.PI/2,0,0],0);
+      box(1,1,2.6,G,0,0,0,leg);box(.04,.3,2.2,C,sx*.52,.12,0,leg);box(1.1,.5,.9,DARK,0,-.25,-1.15,leg);
+      box(.3,.15,.06,0xff3b30,0,.25,-1.31,leg);box(.9,.1,1.2,S2,0,.52,.4,leg);
+      wheel(sx*.62,-.4,.55,.42,0,S2,leg,-.6);wheel(sx*.62,-1.1,.55,.42,0,S2,leg,-.6);
+    }
+    /* the hood becomes the hips, the front wheels stay at the sides */
+    const hood=part([0,1.3,2.5],[0,2.75,.1],[0,0,0],.1);
+    box(2.2,.95,1.2,C,0,0,0,hood);box(1.4,.66,.06,S2,0,-.05,.62,hood);for(let i=-2;i<=2;i++)box(1.36,.05,.08,G,0,-.05+i*.13,.64,hood);
+    box(.36,.2,.06,LAMP,.88,-.2,.62,hood);box(.36,.2,.06,LAMP,-.88,-.2,.62,hood);box(2.4,.25,.3,S2,0,-.45,.7,hood);
+    wheel(1.3,-.2,.6,.5,1,S2,hood,-.7);wheel(-1.3,-.2,.6,.5,1,S2,hood,-.7);
+    /* the cab becomes the chest, the windows stay in front */
+    const cab=part([0,2.0,1.15],[0,4.0,0],[0,0,0],.22);
+    box(2.3,1.5,1.7,C,0,0,0,cab);box(2.2,.15,1.5,G,0,.82,-.05,cab);
+    box(1.9,.6,.06,GLASS,0,.25,.86,cab);box(.06,.5,.8,GLASS,1.16,.25,.25,cab);box(.06,.5,.8,GLASS,-1.16,.25,.25,cab);
+    const gem=box(.36,.36,.06,0xffd23f,0,-.4,.87,cab);gem.rotation.z=Math.PI/4;
+    cyl(.12,1.6,S2,1.0,.9,-.95,'y',cab);cyl(.12,1.6,S2,-1.0,.9,-.95,'y',cab);
+    /* arms: fuel tanks on the sides of the truck, cannons in the robot's hands */
+    for(const sx of [1,-1]){
+      const arm=part([sx*1.25,.95,.2],[sx*1.55,3.95,.55],[0,0,sx*Math.PI*2],.32);
+      cyl(.32,1.6,S2,0,0,0,'z',arm,16);cyl(.34,.1,G,0,0,.55,'z',arm,16);cyl(.34,.1,G,0,0,-.55,'z',arm,16);
+      box(.72,.72,.72,C,0,.12,-.75,arm);
+      const brl=new THREE.Group();brl.position.z=.1;arm.add(brl);
+      cyl(.13,1,G,0,0,0,'z',brl,10);cyl(.18,.22,DARK,0,0,.5,'z',brl,10);
+      const muzzle=new THREE.Object3D();muzzle.position.z=.66;brl.add(muzzle);
+      arms.push({brl,muzzle,rec:0});
+    }
+    /* the head hides inside the cab while driving */
+    const head=part([0,1.9,1.05],[0,5.15,.05],[0,0,0],.5);
+    box(.75,.7,.7,G,0,0,0,head);box(.12,.26,.62,C,0,.45,0,head);box(.5,.14,.06,S2,0,-.2,.36,head);
+    cyl(.16,.1,C,.42,.05,0,'x',head);cyl(.16,.1,C,-.42,.05,0,'x',head);
+    const vis=new THREE.Mesh(new THREE.BoxGeometry(.62,.17,.06),new THREE.MeshBasicMaterial({color:0x6ff4ff}));vis.position.set(0,.08,.36);head.add(vis);
+    R.parts=parts;R.arms=arms;R.morph=0;R.mt=0;R.idle=0;R.side=0;
+    R.S={max:21,acc:17,turn:1.9,rad:1.6,cam:[14,7.5],armor:.75,robot:true};
+    morphCar(R,0);
   }else{ /* fire truck */
     const C=0xe32b2b;
     wheel(1.2,1.9,.62,.5,1);wheel(-1.2,1.9,.62,.5,1);
@@ -1271,18 +1311,43 @@ function makeCar(type){
   if(hdOn)applyCarHD(R,true);
   return R;
 }
+/* m = 0 truck … 1 robot; each part moves in its own slice of time so it looks like real folding */
+function morphCar(C,m){
+  const sm=k=>{k=Math.max(0,Math.min(1,k));return k*k*(3-2*k)};
+  for(const P of C.parts){
+    const e=sm((m-P.d)/.48);
+    P.o.position.lerpVectors(P.tp,P.rp,e);
+    /* parts hop up a little in the middle of the move, so they don't cut through each other */
+    P.o.position.y+=Math.sin(e*Math.PI)*.5;
+    P.o.rotation.set(P.rr[0]*e,P.rr[1]*e,P.rr[2]*e);
+  }
+  const b=sm((m-.85)/.15);
+  for(const a of C.arms)a.brl.position.z=.1+b*1.05-a.rec*.35;
+}
+const transSnd=up=>{for(let i=0;i<6;i++)tone(up?260+i*110:880-i*110,.07,'square',.035,i*.13);noise(.9,.045,2600);tone(up?110:220,.9,'sawtooth',.035);tone(up?660:330,.12,'triangle',.06,.85)};
+/* my robot: stands up when the truck stops, folds back when I press gas */
+function robotTick(dt){
+  const C=CAR,go=inp.u||inp.d;
+  if(go)C.idle=0;else if(Math.abs(car.v)<.6)C.idle+=dt;
+  const mt=go?0:C.idle>.45?1:C.mt;
+  if(mt!==C.mt){C.mt=mt;transSnd(mt)}
+  C.morph=Math.max(0,Math.min(1,C.morph+(mt?dt/1.1:-dt/.8)));
+  for(const a of C.arms)a.rec=Math.max(0,a.rec-dt*5);
+  morphCar(C,C.morph);
+}
 let CAR=makeCar(carType);scene.add(CAR.g);
 car.y=car.lastG=gnd(0,0);CAR.g.position.set(0,car.y,0);
 function setCar(t){
   if(CAR)scene.remove(CAR.g);
   carType=t;CAR=makeCar(t);scene.add(CAR.g);
-  {const fb=document.getElementById('fire');if(fb)fb.textContent=({tank:'💥',gelik:'✴️',sport:'🚀',monster:'⚡',fire:'💧'})[t]||'💥'}
+  {const fb=document.getElementById('fire');if(fb)fb.textContent=({tank:'💥',gelik:'✴️',sport:'🚀',monster:'⚡',fire:'💧',robot:'🤖'})[t]||'💥'}
   CAR.g.position.set(car.x,car.y,car.z);CAR.g.rotation.set(car.pitch,car.h,car.roll);
 }
 const inp={u:0,d:0,l:0,r:0};
 let onRoadNow=false;
 function updCar(dt){
-  const S=CAR.S,thr=inp.u-inp.d,st=inp.l-inp.r;
+  const S=CAR.S,st=inp.l-inp.r;let thr=inp.u-inp.d;
+  if(S.robot){robotTick(dt);if(CAR.morph>.15)thr=0}
   if(dmgCool>0)dmgCool-=dt;
   onRoadNow=roadDist(car.x,car.z)<RW/2+.6;
   const inWater=car.y<-.2;
@@ -1297,6 +1362,7 @@ function updCar(dt){
   const sp=Math.abs(car.v);
   car.h+=car.steer*S.turn*Math.max(-1,Math.min(1,car.v/6))*(1-.35*Math.min(1,sp/S.max))*dt;
   if(S.pivot&&sp<3)car.h+=car.steer*1.5*(1-sp/3)*dt; /* the tank can spin on the spot */
+  if(S.robot&&CAR.morph>.5)car.h+=car.steer*1.7*dt; /* the robot turns on its feet */
   const fx=Math.sin(car.h),fz=Math.cos(car.h),rx=Math.cos(car.h),rz=-Math.sin(car.h);
   const grad=(gnd(car.x+fx*1.6,car.z+fz*1.6)-gnd(car.x-fx*1.6,car.z-fz*1.6))/3.2;
   const onGround=car.y<=car.lastG+.05;
@@ -1369,6 +1435,7 @@ function horn(){
 }
 function hornSnd(t){
   if(t==='tank'){tone(80,.5,'sawtooth',.22);tone(48,.7,'square',.14,.02);tone(140,.15,'square',.08)}
+  else if(t==='robot'){tone(185,.7,'sawtooth',.08);tone(233,.7,'sawtooth',.07);tone(117,.7,'square',.04)}
   else if(t==='fire'){[0,1,2,3].forEach(i=>tone(i%2?620:860,.27,'triangle',.11,i*.28))}
   else if(t==='monster'){tone(196,.4,'sawtooth',.07);tone(247,.4,'sawtooth',.06);tone(294,.4,'sawtooth',.05)}
   else if(t==='sport'){tone(880,.11,'square',.06);tone(1100,.11,'square',.05);tone(880,.11,'square',.06,.15);tone(1100,.11,'square',.05,.15)}
@@ -1384,6 +1451,7 @@ function carThumbs(){
     const m=makeCar(t);m.g.rotation.y=-.6;ts.add(m.g);
     const big=t==='monster'||t==='fire'||t==='tank';
     tc.position.set(7.5,big?5.2:4.2,9.5).multiplyScalar(big?1.18:1);tc.lookAt(0,big?1.6:1,0);
+    if(m.parts){morphCar(m,1);tc.position.set(7.5,4.4,9.5).multiplyScalar(1.02);tc.lookAt(0,2.8,0)}
     renderer.render(ts,tc);out[t]=cv.toDataURL('image/png');ts.remove(m.g);
   }
   renderer.setPixelRatio(pr);
@@ -1976,7 +2044,7 @@ function updPlaces(){
 /* ---------- playing together: one device hosts, others join with a 4-digit code.
    Messages go through a public MQTT server over a normal secure web connection, so it works on any network.
    The first digit of the code tells which server the host picked. ---------- */
-const NET_VER=10,TOPIC='bukvomobil-k7q2/',PCOL=['#ff5a4e','#2f8cff','#22b356','#f5a800'];
+const NET_VER=11,TOPIC='bukvomobil-k7q2/',PCOL=['#ff5a4e','#2f8cff','#22b356','#f5a800'];
 /* the first one uses the usual web port 443, which phones and mobile internet let through */
 const BROKERS=[{u:'wss://public.cloud.shiftr.io',o:{username:'public',password:'public'}},{u:'wss://broker.emqx.io:8084/mqtt'},{u:'wss://test.mosquitto.org:8081/mqtt'}];
 let net=null,netAcc=0,netLAcc=0,joinOpen=false;
@@ -2185,7 +2253,8 @@ function remoteState(d){
     r={C,badge:null,nm:prev?prev.nm:'',talk:prev?prev.talk:false,ct:d.ct,num:d.num||2,cur:prev?prev.cur:{x:d.c[0],y:d.c[1],z:d.c[2],h:d.c[3],p:d.c[4],ro:d.c[5]},dead:prev?prev.dead:false,smT:0};
     remotes.set(d.id,r);
   }
-  r.tg=d.c;r.seen=time;r.s=d.s|0;r.nm=cleanName(d.nm);setBadge(r);
+  r.tg=d.c;r.seen=time;r.s=d.s|0;
+  if(r.C.parts&&(d.m?1:0)!==r.C.mt){r.C.mt=d.m?1:0;if(Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<60)transSnd(r.C.mt)}r.nm=cleanName(d.nm);setBadge(r);
   if(d.d&&!r.dead){r.dead=true;remoteBoom(r)}else if(!d.d&&r.dead)r.dead=false;
 }
 function removeRemote(id){closeRtc(id);const r=remotes.get(id);if(!r)return;scene.remove(r.C.g,r.badge);remotes.delete(id);drawBoard()}
@@ -2211,6 +2280,7 @@ function updRemotes(dt){
     r.badge.position.set(r.cur.x,r.cur.y+(C.S.cam[1]>7?6.6:5.2),r.cur.z);
     if(C.blink.length){const on=Math.floor(time*5)%2;C.blink[0].emissive.setHex(on?0xcc1010:0);C.blink[1].emissive.setHex(on?0:0x1040cc)}
     if(C.turret){C.recoil=Math.max(0,(C.recoil||0)-dt*3);C.barrel.position.z=1.1-C.recoil*.7;C.turret.rotation.y+=Math.atan2(Math.sin((t[8]||0)-C.turret.rotation.y),Math.cos((t[8]||0)-C.turret.rotation.y))*k}
+    if(C.parts){C.morph=Math.max(0,Math.min(1,C.morph+(C.mt?dt/1.1:-dt/.8)));for(const a of C.arms)a.rec=Math.max(0,a.rec-dt*5);morphCar(C,C.morph)}
     if(r.s){r.smT-=dt;if(r.smT<=0){r.smT=r.s===1?.3:.15;carSmoke(r.cur.x,r.cur.y,r.cur.z,r.cur.h,r.s)}}
   }
 }
@@ -2230,7 +2300,7 @@ function netTick(dt){
   netAcc+=dt;
   if(netAcc>=.1){
     netAcc=0;
-    netSend({t:'car',num:net.num||1,c:[r2(car.x),r2(car.y),r2(car.z),r2(car.h),r2(car.pitch),r2(car.roll),r2(car.steer),r2(car.v),CAR.turret?r2(CAR.turret.rotation.y):0],ct:carType,d:carDead?1:0,s:dmgStage,nm:myName||undefined});
+    netSend({t:'car',num:net.num||1,c:[r2(car.x),r2(car.y),r2(car.z),r2(car.h),r2(car.pitch),r2(car.roll),r2(car.steer),r2(car.v),CAR.turret?r2(CAR.turret.rotation.y):0],ct:carType,m:CAR.mt?1:undefined,d:carDead?1:0,s:dmgStage,nm:myName||undefined});
   }
   netLAcc+=dt;
   if(netLAcc>=1){
@@ -2264,6 +2334,7 @@ const WEAP={
   gelik:{cd:.11,sp:150,dmg:4,col:0xff3b30,len:3,th:.18,g:0,life:1,tail:9,spread:.035,knock:.1,slow:.92}, /* machine gun */
   sport:{cd:1,sp:58,dmg:22,col:0xff8a1a,len:1.6,th:.42,g:0,life:2.6,tail:2.4,rocket:true,splash:7,knock:1.5,slow:.4}, /* homing rockets */
   monster:{cd:2.2,pulse:true,dmg:15,rad:17,col:0x6ad8ff,knock:3.5,slow:.2},                               /* electric pulse */
+  robot:{cd:.26,sp:125,dmg:7,col:0x9dff3a,len:2.4,th:.26,g:0,life:1.3,tail:7,knock:.3,slow:.75,arms:true},  /* arm blasters */
   fire:{cd:.15,sp:70,dmg:3,col:0x6ad0ff,len:2.2,th:.3,g:14,life:1.2,water:true,tail:4,knock:.45,slow:.7}  /* water cannon */
 };
 const shots=[],shotPool=[],zaps=[];let fireCool=0,spawnT=0;
@@ -2291,6 +2362,7 @@ function shotMesh(w){
 function shotSnd(w){
   if(w==='tank'){tone(80,.5,'sawtooth',.22);tone(48,.7,'square',.14,.02);tone(140,.15,'square',.08)}
   else if(w==='fire')noise(.12,.05,900);
+  else if(w==='robot'){tone(1300,.09,'square',.035);tone(520,.16,'sawtooth',.05,.02);noise(.08,.04,4000)}
   else if(w==='sport'){noise(.45,.09,500);tone(180,.35,'sawtooth',.05);tone(360,.25,'triangle',.04,.05)}
   else if(w==='monster'){tone(1400,.08,'sawtooth',.06);tone(900,.12,'sawtooth',.06,.05);tone(520,.22,'square',.05,.1);noise(.3,.07,3000)}
   else{tone(950,.04,'square',.045);noise(.04,.04,2000)}
@@ -2313,10 +2385,14 @@ function aimTarget(ox,oz,yaw,cone,maxD){
 function fire(){
   if(!running||carDead||fireCool>0)return;
   try{if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();ac.resume()}catch(e){}
-  const w=carType,W=WEAP[w];fireCool=W.cd;
+  const w=carType,W=WEAP[w];
+  /* the robot shoots only standing up; a stopped truck stands up right away */
+  if(W.arms&&CAR.morph<.95){if(Math.abs(car.v)<1&&!inp.u&&!inp.d)CAR.idle=1;return}
+  fireCool=W.cd;
   if(W.pulse){shotSnd(w);pulseFx(car.x,car.y,car.z,myId());netSend({t:'pulse',p:[r2(car.x),r2(car.y),r2(car.z)]});return}
   let yaw=car.h,ox,oy,oz;
   if(CAR.turret){yaw=car.h+CAR.turret.rotation.y;CAR.recoil=1;CAR.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
+  else if(CAR.arms){const a=CAR.arms[CAR.side^=1];a.rec=1;a.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
   else{const fx=Math.sin(car.h),fz=Math.cos(car.h);ox=car.x+fx*2.4;oy=car.y+(CAR.S.cam[1]>7?3.2:1.8);oz=car.z+fz*2.4}
   let pitch=W.water?.12:0;
   const tg=aimTarget(ox,oz,yaw,W.rocket?.7:.26)||(CAR.turret?aimTarget(car.x,car.z,car.h):null);
@@ -2448,7 +2524,7 @@ function takeShot(d){
   if(carDead){const r=remotes.get(d.f);showBanner(Tx().killedYou(nameOf(d.f)));netSend({t:'kill',to:d.f})}
 }
 /* ---------- engine sound: quiet, rises with speed and throttle, each car has its own voice ---------- */
-const ENG={gelik:[46,92,'sawtooth'],sport:[70,190,'sawtooth'],tank:[28,52,'square'],monster:[36,80,'sawtooth'],fire:[44,88,'sawtooth']};
+const ENG={robot:[38,84,'sawtooth'],gelik:[46,92,'sawtooth'],sport:[70,190,'sawtooth'],tank:[28,52,'square'],monster:[36,80,'sawtooth'],fire:[44,88,'sawtooth']};
 let eng=null;
 function updEngine(){
   if(!ac)return;
@@ -2638,6 +2714,7 @@ function peerMsg(d){
     spawnShot(+d.p[0],+d.p[1],+d.p[2],+d.v[0],+d.v[1],+d.v[2],d.w,false,d.g||null);
     const r=remotes.get(d.f);if(r&&Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<120)shotSnd(d.w);
     if(r&&r.C.turret)r.C.recoil=1;
+    if(r&&r.C.arms){const a=r.C.arms[r.C.side^=1];a.rec=1}
   }else if(d.t==='pulse'&&Array.isArray(d.p)){pulseFx(+d.p[0],+d.p[1],+d.p[2],d.f);const r=remotes.get(d.f);if(r&&Math.hypot(r.cur.x-car.x,r.cur.z-car.z)<120)shotSnd('monster')}
   else if(d.t==='dmg'&&d.to===myId())takeShot(d);
   else if(d.t==='rtc')rtcMsg(d);
