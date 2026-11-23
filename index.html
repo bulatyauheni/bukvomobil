@@ -1549,12 +1549,14 @@ function carThumbs(){
 }
 const camLook=new THREE.Vector3();
 function updCam(dt,snap){
-  const [cb,cu]=CAR.S.cam,fx=Math.sin(car.h),fz=Math.cos(car.h),back=cb+Math.abs(car.v)*.15;
-  pv.set(car.x-fx*back,car.y+cu,car.z-fz*back);
+  /* a robot is tall: the camera goes up over its right shoulder and looks far ahead */
+  const rk=CAR.S.robot?CAR.morph:0,cb=CAR.S.cam[0]*(1-rk)+8.5*rk,cu=CAR.S.cam[1]*(1-rk)+8.2*rk,side=3.4*rk;
+  const fx=Math.sin(car.h),fz=Math.cos(car.h),sx=-fz,sz=fx,back=cb+Math.abs(car.v)*.15;
+  pv.set(car.x-fx*back+sx*side,car.y+cu,car.z-fz*back+sz*side);
   const k=snap?1:1-Math.exp(-dt*4);
   cam.position.lerp(pv,k);
   const gy=gnd(cam.position.x,cam.position.z)+2;if(cam.position.y<gy)cam.position.y=gy;
-  sv.set(car.x+fx*5,car.y+1.5,car.z+fz*5);camLook.lerp(sv,snap?1:1-Math.exp(-dt*6));cam.lookAt(camLook);
+  sv.set(car.x+fx*(5+22*rk)+sx*side*.6,car.y+1.5+1.5*rk,car.z+fz*(5+22*rk)+sz*side*.6);camLook.lerp(sv,snap?1:1-Math.exp(-dt*6));cam.lookAt(camLook);
   if(shake>0){cam.position.x+=rnd(-1,1)*shake*.5;cam.position.y+=rnd(-1,1)*shake*.5;cam.position.z+=rnd(-1,1)*shake*.5;shake=Math.max(0,shake-dt*2.5)}
 }
 /* ---------- letter blocks ---------- */
@@ -2462,6 +2464,28 @@ function spawnShot(x,y,z,vx,vy,vz,w,mine,tg){
   const m=shotMesh(w);m.position.set(x,y,z);
   shots.push({m,x,y,z,vx,vy,vz,w,mine,tg,t:WEAP[w].life,run:0,puff:0});
 }
+/* what my robot will shoot at: a friend's car in front, or else a letter close by (not in the race: there you must reach them) */
+function robotPick(){
+  const tg=aimTarget(car.x,car.z,car.h,1.1,110);let tl=null;
+  if(!tg&&mode!=='race'){let bs=1e9;for(const L of letters){if(L.state!=='idle')continue;const dx=L.x-car.x,dz=L.z-car.z,d=Math.hypot(dx,dz);if(d>55||d<2)continue;const da=Math.abs(Math.atan2(Math.sin(Math.atan2(dx,dz)-car.h),Math.cos(Math.atan2(dx,dz)-car.h)));if(da<1.1&&da*20+d<bs){bs=da*20+d;tl=L}}}
+  return {tg,tl};
+}
+/* a red ring floats over the robot's target, so it is clear where the shot goes */
+let reticle=null;
+function updReticle(){
+  const on=running&&!carDead&&CAR.S.robot&&CAR.morph>.9;let T=null;
+  if(on){const p=robotPick();if(p.tg)T={x:p.tg.r.cur.x,y:p.tg.r.cur.y+2,z:p.tg.r.cur.z};else if(p.tl)T={x:p.tl.x,y:p.tl.base+BS*.5,z:p.tl.z}}
+  if(!T){if(reticle)reticle.visible=false;return}
+  if(!reticle){
+    const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+    x.strokeStyle='#ff3b30';x.lineWidth=10;x.beginPath();x.arc(64,64,44,0,Math.PI*2);x.stroke();
+    x.lineWidth=8;for(const [a,b,d,e] of [[64,4,64,30],[64,98,64,124],[4,64,30,64],[98,64,124,64]]){x.beginPath();x.moveTo(a,b);x.lineTo(d,e);x.stroke()}
+    x.fillStyle='#ff3b30';x.beginPath();x.arc(64,64,8,0,Math.PI*2);x.fill();
+    reticle=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false,transparent:true}));reticle.renderOrder=10;scene.add(reticle);
+  }
+  reticle.visible=true;reticle.position.set(T.x,T.y,T.z);
+  const d=cam.position.distanceTo(reticle.position);reticle.scale.setScalar(Math.max(4,d*.11)*(1+Math.sin(time*8)*.08));
+}
 /* the car I am aiming at: a little help so kids can hit something */
 function aimTarget(ox,oz,yaw,cone,maxD){
   let best=null,bs=1e9;
@@ -2486,10 +2510,7 @@ function fire(){
   else if(CAR.arms){CAR.aimT=1.6;if(CAR.aim<.9){CAR.aim=1;morphCar(CAR,CAR.morph);CAR.g.updateMatrixWorld(true)}const a=CAR.arms[CAR.side^=1];a.rec=1;a.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
   else{const fx=Math.sin(car.h),fz=Math.cos(car.h);ox=car.x+fx*2.4;oy=car.y+(CAR.S.cam[1]>7?3.2:1.8);oz=car.z+fz*2.4}
   let pitch=W.water?.12:0;
-  const tg=CAR.arms?aimTarget(car.x,car.z,car.h,1.1,110):aimTarget(ox,oz,yaw,W.rocket?.7:CAR.turret?.12:.26);
-  /* the robot also aims at letters close by (not in the race: there you must reach them) */
-  let tl=null;
-  if(CAR.arms&&!tg&&mode!=='race'){let bs=1e9;for(const L of letters){if(L.state!=='idle')continue;const dx=L.x-car.x,dz=L.z-car.z,d=Math.hypot(dx,dz);if(d>55||d<2)continue;const da=Math.abs(Math.atan2(Math.sin(Math.atan2(dx,dz)-car.h),Math.cos(Math.atan2(dx,dz)-car.h)));if(da<1.1&&da*20+d<bs){bs=da*20+d;tl=L}}}
+  const rp=CAR.arms?robotPick():null,tg=rp?rp.tg:aimTarget(ox,oz,yaw,W.rocket?.7:CAR.turret?.12:.26),tl=rp?rp.tl:null;
   if(CAR.arms&&(tg||tl)){const T=tg?tg.r.cur:tl;CAR.faceH=Math.atan2(T.x-car.x,T.z-car.z);CAR.faceT=1.2;
     if(tl){yaw=Math.atan2(tl.x-ox,tl.z-oz);pitch=Math.atan2(tl.base+BS*.5-oy,Math.hypot(tl.x-ox,tl.z-oz))}}
   if(tg&&CAR.turret){CAR.turret.rotation.y=Math.atan2(tg.r.cur.x-car.x,tg.r.cur.z-car.z)-car.h;CAR.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
@@ -2835,7 +2856,7 @@ function frame(now){
   scene.fog.near=running?GFX[gfxLvl].fog[0]:700;scene.fog.far=running?GFX[gfxLvl].fog[1]:2000;
   for(const f of anims)f(dt);
   if(hornCool>0)hornCool-=dt;
-  updCarFx();updLetters(dt);updParts(dt);
+  updCarFx();updReticle();updLetters(dt);updParts(dt);
   for(const c of clouds){c.position.x+=dt*3;if(c.position.x>900)c.position.x=-900}
   water.position.y=Math.sin(time*.8)*.08;
   const cx=running?car.x:0,cz=running?car.z:0;
