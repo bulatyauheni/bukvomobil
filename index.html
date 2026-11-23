@@ -26,7 +26,7 @@ button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 #targetBox{top:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:8px 10px 8px 16px;font-size:20px}
 #tgtL{width:60px;height:60px;border-radius:14px;display:grid;place-items:center;font-size:44px;line-height:1;color:#fff;background:var(--red);box-shadow:inset 0 -5px 0 rgba(0,0,0,.18)}
 #targetBox button{padding:0 12px;font-size:15px}
-#compass{position:fixed;top:100px;left:50%;width:76px;height:76px;margin-left:-38px;z-index:2;opacity:0;transition:opacity .3s;pointer-events:none}
+#compass{position:fixed;top:calc(50% - 60px);left:16px;width:76px;height:76px;z-index:2;opacity:0;transition:opacity .3s;pointer-events:none}
 #compass.on{opacity:1}
 #compass svg{width:100%;height:100%;filter:drop-shadow(0 4px 0 rgba(20,50,74,.25))}
 #arr{transform-origin:30px 30px;transition:transform .1s linear}
@@ -65,7 +65,7 @@ h1 span.sp{width:.4em;box-shadow:none}
 #go{width:100%;margin-top:18px;background:var(--red);color:#fff;font-size:26px;font-weight:900;padding:12px;border-radius:20px;box-shadow:0 6px 0 #b8322a}
 #go:active{transform:translateY(4px);box-shadow:0 2px 0 #b8322a}
 .help{font-size:14px;opacity:.7;margin:12px 0 0;text-align:center}
-.cars{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.cars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
 .car{padding:4px 4px 8px;background:#eef6ff;border:3px solid transparent;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:14px;font-weight:900;line-height:1.15;text-align:center}
 .car img{width:100%;aspect-ratio:8/5;object-fit:contain;display:block;border-radius:12px}
 .car .wp{font-size:11px;font-weight:700;opacity:.75}
@@ -128,7 +128,7 @@ body.touch #banner{bottom:110px}
 body.menu .hud{display:none!important}
 body:not(.menu) #title{display:none}
 [hidden]{display:none!important}
-@media(max-width:600px){#win{font-size:28px}#fire{width:70px;height:70px;font-size:30px;right:36px;bottom:calc(max(18px,env(safe-area-inset-bottom)) + 120px)}#hp .bar{width:80px}#card{top:160px!important}#map{width:104px;height:104px;top:150px}#card{top:132px;transform-origin:left top;transform:scale(.5);padding:10px 18px 12px;min-width:0}#card.on{transform:scale(1)}#card .pic{font-size:40px}.modes{grid-template-columns:minmax(0,1fr)}.cars{grid-template-columns:repeat(3,minmax(0,1fr))}#score{font-size:15px}#score b{font-size:22px}#targetBox{top:64px;font-size:17px}#tgtL{width:50px;height:50px;font-size:36px}#compass{top:136px}#card .L{font-size:72px}#card .w{font-size:28px}.pad button{width:74px;height:74px}#gas{width:94px;height:94px}}
+@media(max-width:600px){#win{font-size:28px}#fire{width:70px;height:70px;font-size:30px;right:36px;bottom:calc(max(18px,env(safe-area-inset-bottom)) + 120px)}#hp .bar{width:80px}#card{top:160px!important}#map{width:104px;height:104px;top:150px}#card{top:132px;transform-origin:left top;transform:scale(.5);padding:10px 18px 12px;min-width:0}#card.on{transform:scale(1)}#card .pic{font-size:40px}.modes{grid-template-columns:minmax(0,1fr)}.cars{grid-template-columns:repeat(4,minmax(0,1fr))}#score{font-size:15px}#score b{font-size:22px}#targetBox{top:64px;font-size:17px}#tgtL{width:50px;height:50px;font-size:36px}#compass{top:calc(50% - 50px)}#card .L{font-size:72px}#card .w{font-size:28px}.pad button{width:74px;height:74px}#gas{width:94px;height:94px}}
 /* phones (also lying sideways): smaller buttons and hints so the road stays visible */
 @media (max-height:500px),(max-width:600px){
   .chip{padding:5px 10px;border-radius:14px;box-shadow:0 3px 0 rgba(20,50,74,.25)}
@@ -138,7 +138,7 @@ body:not(.menu) #title{display:none}
   #menuBtn{top:8px;right:8px;padding:5px 11px;font-size:13px}#fsBtn{top:8px;right:72px;padding:5px 8px}#fsBtn svg{width:16px;height:16px}
   #map{width:92px;height:92px;top:42px;right:8px;border-width:3px;border-radius:14px}
   #targetBox{top:8px;font-size:13px;gap:6px;padding:4px 6px 4px 10px}#tgtL{width:36px;height:36px;font-size:25px;border-radius:10px}#targetBox button{font-size:12px;padding:0 8px;min-height:30px}#targetBox #repeat svg{width:18px;height:18px}
-  #compass{top:52px;width:48px;height:48px;margin-left:-24px}
+  #compass{top:calc(50% - 40px);left:10px;width:52px;height:52px}
   #card{padding:6px 14px 8px;min-width:0;border-width:4px;border-radius:20px;top:50%!important}#card .L{font-size:48px}#card .pic{font-size:28px}#card .w{font-size:19px}#card .ex{font-size:14px}
   #banner{font-size:14px}body.touch #banner{bottom:92px}#win{font-size:24px;padding:12px 20px}
   .pad{gap:10px}.pad button{width:62px;height:62px}.pad svg{width:28px;height:28px}#gas{width:80px;height:80px}#rev{width:54px;height:54px}
@@ -247,9 +247,9 @@ const RU=[['А','а','арбуз','🍉'],['Б','бэ','банан','🍌'],['В
 const EN=[['A','ay','apple','🍎'],['B','bee','bear','🐻'],['C','see','cat','🐱'],['D','dee','dog','🐶'],['E','ee','egg','🥚'],['F','ef','fish','🐟'],['G','gee','grapes','🍇'],['H','aitch','house','🏠'],['I','eye','ice cream','🍦'],['J','jay','juice','🧃'],['K','kay','kite','🪁'],['L','el','lion','🦁'],['M','em','moon','🌙'],['N','en','nose','👃'],['O','oh','orange','🍊'],['P','pee','pig','🐷'],['Q','cue','queen','👑'],['R','ar','rocket','🚀'],['S','ess','sun','☀️'],['T','tee','tiger','🐯'],['U','you','umbrella','☂️'],['V','vee','violin','🎻'],['W','double you','whale','🐳'],['X','ex','box','📦',1],['Y','why','yo-yo','🪀'],['Z','zee','zebra','🦓']];
 
 const T={
- ru:{title:'Буквомобиль',langL:'Буквы',modeL:'Режим',free:'Катаемся',freeD:'Сбивай любые буквы и слушай, как они звучат',find:'Найди букву',findD:'Голос загадывает букву — найди её на острове и сбей',go:'Поехали!',help:'Стрелки или WASD — руль и газ, пробел — огонь, H — сигнал, V — говорить. На планшете — кнопки на экране.',carL:'Машина',voiceL:'Голос',listen:'Послушать',noVoice:'Голос не найден',test:'Привет! Поехали искать буквы!',car_gelik:'Гелик',car_sport:'Спорткар',car_tank:'Танк',car_monster:'Монстр-трак',car_fire:'Пожарная',car_robot:'Робот-тягач',wp_robot:'🤖 бластеры',wp_tank:'💥 пушка',wp_gelik:'✴️ пулемёт',wp_sport:'🚀 ракеты',wp_monster:'⚡ молния',wp_fire:'💧 водомёт',findL:'Найди',got:'Собрано',gfxL:'Графика',gAuto:'Авто',gLow:'Быстро',gMid:'Красиво',gHigh:'Супер',race:'Гонка',raceD:'Все ищут одну букву. Кто первым соберёт 10 — победил! Можно стрелять 💥',youWin:'Ты победил! 🏆',winMsg:n=>`Победил ${n}! 🏆`,gotIt:n=>`${n} нашёл!`,killedYou:n=>`Тебя подбил ${n}`,youKilled:n=>`Ты подбил: ${n}!`,newRound:'Новый раунд!',netL:'Играть вместе',host:'Создать игру',join:'Присоединиться',connect:'Подключиться',leave:'Выйти',code:'Код игры',players:'Игроков',connecting:'Подключаюсь…',hostHint:'набери его на другом устройстве',youAre:n=>`Ты игрок ${n}`,followHost:'Буквы и режим выбирает главный.',joinedMsg:n=>`${n} с нами!`,leftMsg:n=>`${n} ушёл`,pl:n=>`Игрок ${n}`,nameL:'Твоё имя',noMic:'Нет доступа к микрофону. Разреши его или открой игру в Chrome',micFile:'Микрофон не работает, когда игра открыта из файла. Открой её по ссылке https:// в Chrome',micDenied:'Микрофон запрещён. Нажми на замочек слева от адреса → Разрешения → Микрофон → Разрешить, потом обнови страницу',micNone:'Микрофон не найден',micBusy:'Микрофон занят другим приложением (звонок, запись?)',camFile:'Камера работает только по ссылке https:// в Chrome',camDenied:'Камера запрещена. Нажми на замочек слева от адреса → Разрешения → Камера → Разрешить, потом обнови страницу',camNone:'Камера не найдена',camBusy:'Камера занята другим приложением',voiceN:n=>`🎙️ голос с ${n}`,voiceFail:n=>`🔇 Голос с ${n} не соединился, пробую ещё`,lostMsg:'Связь потеряна — играем дальше одни',notFound:'Сервер связи доступен, но игра с этим кодом не ответила. Проверь код и что на другом устройстве нажато «Создать игру» и экран не погас',badCode:'Нужен код из 4 цифр',netFail:'Не достучаться до сервера связи. Попробуй другой интернет (Wi-Fi или мобильный) или открой файл в Chrome',netNoLib:'Не загрузилась библиотека связи. Проверь интернет или открой файл в Chrome',verMsg:'Разные версии игры — отправь новый файл на все устройства',fullMsg:'В игре уже 4 игрока',boomT:'Бабах! Машина сломалась',again:'Поехали снова!',boomSay:'Бабах! Машина сломалась. Поехали снова!',hit:'Сбито',hint:'Подсказка',menu:'Меню',voice:'ru-RU',isIt:'Это',
+ ru:{title:'Буквомобиль',langL:'Буквы',modeL:'Режим',free:'Катаемся',freeD:'Сбивай любые буквы и слушай, как они звучат',find:'Найди букву',findD:'Голос загадывает букву — найди её на острове и сбей',go:'Поехали!',help:'Стрелки или WASD — руль и газ, пробел — огонь, H — сигнал, V — говорить. На планшете — кнопки на экране.',carL:'Машина',voiceL:'Голос',listen:'Послушать',noVoice:'Голос не найден',test:'Привет! Поехали искать буквы!',car_gelik:'Гелик',car_sport:'Спорткар',car_tank:'Танк',car_monster:'Монстр-трак',car_fire:'Пожарная',car_robot:'Робот-тягач',wp_robot:'🤖 бластеры',car_robot2:'Робот-спорткар',wp_robot2:'🚀 ракеты',wp_tank:'💥 пушка',wp_gelik:'✴️ пулемёт',wp_sport:'🚀 ракеты',wp_monster:'⚡ молния',wp_fire:'💧 водомёт',findL:'Найди',got:'Собрано',gfxL:'Графика',gAuto:'Авто',gLow:'Быстро',gMid:'Красиво',gHigh:'Супер',race:'Гонка',raceD:'Все ищут одну букву. Кто первым соберёт 10 — победил! Можно стрелять 💥',youWin:'Ты победил! 🏆',winMsg:n=>`Победил ${n}! 🏆`,gotIt:n=>`${n} нашёл!`,killedYou:n=>`Тебя подбил ${n}`,youKilled:n=>`Ты подбил: ${n}!`,newRound:'Новый раунд!',netL:'Играть вместе',host:'Создать игру',join:'Присоединиться',connect:'Подключиться',leave:'Выйти',code:'Код игры',players:'Игроков',connecting:'Подключаюсь…',hostHint:'набери его на другом устройстве',youAre:n=>`Ты игрок ${n}`,followHost:'Буквы и режим выбирает главный.',joinedMsg:n=>`${n} с нами!`,leftMsg:n=>`${n} ушёл`,pl:n=>`Игрок ${n}`,nameL:'Твоё имя',noMic:'Нет доступа к микрофону. Разреши его или открой игру в Chrome',micFile:'Микрофон не работает, когда игра открыта из файла. Открой её по ссылке https:// в Chrome',micDenied:'Микрофон запрещён. Нажми на замочек слева от адреса → Разрешения → Микрофон → Разрешить, потом обнови страницу',micNone:'Микрофон не найден',micBusy:'Микрофон занят другим приложением (звонок, запись?)',camFile:'Камера работает только по ссылке https:// в Chrome',camDenied:'Камера запрещена. Нажми на замочек слева от адреса → Разрешения → Камера → Разрешить, потом обнови страницу',camNone:'Камера не найдена',camBusy:'Камера занята другим приложением',voiceN:n=>`🎙️ голос с ${n}`,voiceFail:n=>`🔇 Голос с ${n} не соединился, пробую ещё`,lostMsg:'Связь потеряна — играем дальше одни',notFound:'Сервер связи доступен, но игра с этим кодом не ответила. Проверь код и что на другом устройстве нажато «Создать игру» и экран не погас',badCode:'Нужен код из 4 цифр',netFail:'Не достучаться до сервера связи. Попробуй другой интернет (Wi-Fi или мобильный) или открой файл в Chrome',netNoLib:'Не загрузилась библиотека связи. Проверь интернет или открой файл в Chrome',verMsg:'Разные версии игры — отправь новый файл на все устройства',fullMsg:'В игре уже 4 игрока',boomT:'Бабах! Машина сломалась',again:'Поехали снова!',boomSay:'Бабах! Машина сломалась. Поехали снова!',hit:'Сбито',hint:'Подсказка',menu:'Меню',voice:'ru-RU',isIt:'Это',
   phrase:d=>d[4]?`${d[1]}. Как в слове ${d[2]}.`:`${d[1]}. ${d[2]}!`,ask:d=>`Найди букву ${d[1]}!`,wrong:(d,t)=>`Это ${d[1]}. Ищи ${t[1]}!`,good:['Молодец!','Отлично!','Супер!','Здорово!','Ура!']},
- en:{title:'Alphabet Drive',langL:'Letters',modeL:'Mode',free:'Free ride',freeD:'Bump into any letter and hear how it sounds',find:'Find the letter',findD:'The voice picks a letter — find it on the island and hit it',go:"Let's go!",help:'Arrow keys or WASD to drive, Space to shoot, H to honk, V to talk. On a tablet use the buttons on screen.',carL:'Car',voiceL:'Voice',listen:'Listen',noVoice:'No voice found',test:"Hi! Let's go find some letters!",car_gelik:'G-Wagon',car_sport:'Sports car',car_tank:'Tank',car_monster:'Monster truck',car_fire:'Fire truck',car_robot:'Robo truck',wp_robot:'🤖 blasters',wp_tank:'💥 cannon',wp_gelik:'✴️ machine gun',wp_sport:'🚀 rockets',wp_monster:'⚡ lightning',wp_fire:'💧 water cannon',findL:'Find',got:'Found',gfxL:'Graphics',gAuto:'Auto',gLow:'Fast',gMid:'Nice',gHigh:'Super',race:'Race',raceD:'Everyone hunts the same letter. First to collect 10 wins! You can shoot 💥',youWin:'You win! 🏆',winMsg:n=>`${n} wins! 🏆`,gotIt:n=>`${n} got it!`,killedYou:n=>`${n} knocked you out`,youKilled:n=>`You knocked out ${n}!`,newRound:'New round!',netL:'Play together',host:'Create game',join:'Join',connect:'Connect',leave:'Leave',code:'Game code',players:'Players',connecting:'Connecting…',hostHint:'type it on the other device',youAre:n=>`You are player ${n}`,followHost:'The host picks letters and mode.',joinedMsg:n=>`${n} joined!`,leftMsg:n=>`${n} left`,pl:n=>`Player ${n}`,nameL:'Your name',noMic:'No microphone access. Allow it or open the game in Chrome',micFile:'The microphone does not work when the game is opened from a file. Open it from an https:// link in Chrome',micDenied:'Microphone is blocked. Tap the lock left of the address → Permissions → Microphone → Allow, then reload',micNone:'No microphone found',micBusy:'The microphone is busy in another app (a call?)',camFile:'The camera works only from an https:// link in Chrome',camDenied:'Camera is blocked. Tap the lock left of the address → Permissions → Camera → Allow, then reload',camNone:'No camera found',camBusy:'The camera is busy in another app',voiceN:n=>`🎙️ voice with ${n}`,voiceFail:n=>`🔇 No voice with ${n} yet, trying again`,lostMsg:'Connection lost — playing alone now',notFound:'The server works, but no game answered with this code. Check the code and that the other device pressed “Create game”',badCode:'The code has 4 digits',netFail:'Cannot reach the connection server. Try another network or open the file in Chrome',netNoLib:'No internet — playing together is not available',verMsg:'Different game versions — send the new file to every device',fullMsg:'This game already has 4 players',boomT:'Boom! The car broke',again:'Drive again!',boomSay:'Boom! The car broke. Let us drive again!',hit:'Hits',hint:'Hint',menu:'Menu',voice:'en-US',isIt:"That's",
+ en:{title:'Alphabet Drive',langL:'Letters',modeL:'Mode',free:'Free ride',freeD:'Bump into any letter and hear how it sounds',find:'Find the letter',findD:'The voice picks a letter — find it on the island and hit it',go:"Let's go!",help:'Arrow keys or WASD to drive, Space to shoot, H to honk, V to talk. On a tablet use the buttons on screen.',carL:'Car',voiceL:'Voice',listen:'Listen',noVoice:'No voice found',test:"Hi! Let's go find some letters!",car_gelik:'G-Wagon',car_sport:'Sports car',car_tank:'Tank',car_monster:'Monster truck',car_fire:'Fire truck',car_robot:'Robo truck',wp_robot:'🤖 blasters',car_robot2:'Robo racer',wp_robot2:'🚀 rockets',wp_tank:'💥 cannon',wp_gelik:'✴️ machine gun',wp_sport:'🚀 rockets',wp_monster:'⚡ lightning',wp_fire:'💧 water cannon',findL:'Find',got:'Found',gfxL:'Graphics',gAuto:'Auto',gLow:'Fast',gMid:'Nice',gHigh:'Super',race:'Race',raceD:'Everyone hunts the same letter. First to collect 10 wins! You can shoot 💥',youWin:'You win! 🏆',winMsg:n=>`${n} wins! 🏆`,gotIt:n=>`${n} got it!`,killedYou:n=>`${n} knocked you out`,youKilled:n=>`You knocked out ${n}!`,newRound:'New round!',netL:'Play together',host:'Create game',join:'Join',connect:'Connect',leave:'Leave',code:'Game code',players:'Players',connecting:'Connecting…',hostHint:'type it on the other device',youAre:n=>`You are player ${n}`,followHost:'The host picks letters and mode.',joinedMsg:n=>`${n} joined!`,leftMsg:n=>`${n} left`,pl:n=>`Player ${n}`,nameL:'Your name',noMic:'No microphone access. Allow it or open the game in Chrome',micFile:'The microphone does not work when the game is opened from a file. Open it from an https:// link in Chrome',micDenied:'Microphone is blocked. Tap the lock left of the address → Permissions → Microphone → Allow, then reload',micNone:'No microphone found',micBusy:'The microphone is busy in another app (a call?)',camFile:'The camera works only from an https:// link in Chrome',camDenied:'Camera is blocked. Tap the lock left of the address → Permissions → Camera → Allow, then reload',camNone:'No camera found',camBusy:'The camera is busy in another app',voiceN:n=>`🎙️ voice with ${n}`,voiceFail:n=>`🔇 No voice with ${n} yet, trying again`,lostMsg:'Connection lost — playing alone now',notFound:'The server works, but no game answered with this code. Check the code and that the other device pressed “Create game”',badCode:'The code has 4 digits',netFail:'Cannot reach the connection server. Try another network or open the file in Chrome',netNoLib:'No internet — playing together is not available',verMsg:'Different game versions — send the new file to every device',fullMsg:'This game already has 4 players',boomT:'Boom! The car broke',again:'Drive again!',boomSay:'Boom! The car broke. Let us drive again!',hit:'Hits',hint:'Hint',menu:'Menu',voice:'en-US',isIt:"That's",
   phrase:d=>d[4]?`${d[1]}, like in ${d[2]}.`:`${d[1]}. ${d[2]}!`,ask:d=>`Find the letter ${d[1]}!`,wrong:(d,t)=>`That's ${d[1]}. Find ${t[1]}!`,good:['Well done!','Great job!','Super!','Awesome!','Yay!']}
 };
 
@@ -260,7 +260,7 @@ const Tx=()=>T[lang];
 let prefs={};
 try{prefs=JSON.parse(localStorage.getItem('bukvomobil')||'{}')||{}}catch(e){prefs={}}
 if(!prefs.voice||typeof prefs.voice!=='object')prefs.voice={};
-const CAR_LIST=['gelik','sport','tank','monster','fire','robot'];
+const CAR_LIST=['gelik','sport','tank','monster','fire','robot','robot2'];
 let carType=CAR_LIST.includes(prefs.car)?prefs.car:'gelik';
 if(prefs.lang==='en')lang='en';if(prefs.mode==='find'||prefs.mode==='race')mode=prefs.mode;
 function savePrefs(){try{localStorage.setItem('bukvomobil',JSON.stringify({lang,mode,car:carType,voice:prefs.voice,name:prefs.name||'',gfx:prefs.gfx??'auto'}))}catch(e){}}
@@ -1285,7 +1285,7 @@ function makeCar(type){
       const brl=new THREE.Group();A.add(brl);
       cyl(.13,1.1,G,0,-.55,0,'y',brl,10);cyl(.19,.24,DARK,0,-1.12,0,'y',brl,10);
       const muzzle=new THREE.Object3D();muzzle.position.y=-1.3;brl.add(muzzle);
-      arms.push({P,brl,muzzle,rec:0});
+      arms.push({P,brl,muzzle,rec:0,ax:'y',p0:-1.3,dp:-.95,rk:.3});
     }
     /* head hides inside the cab while driving */
     const head=part([0,1.9,1.05],[0,0,0],[0,6.2,.05],[0,0,0],.5).o;
@@ -1294,6 +1294,51 @@ function makeCar(type){
     const vis=new THREE.Mesh(new THREE.BoxGeometry(.62,.17,.06),new THREE.MeshBasicMaterial({color:0x6ff4ff}));vis.position.set(0,.08,.36);head.add(vis);
     Object.assign(R,{faceH:0,faceT:0,parts,arms,legs,morph:0,mt:0,idle:0,side:0,walk:0,ph:0,aim:0,aimT:0,walkT:0,walking:false});
     R.S={max:21,acc:17,turn:1.9,rad:1.6,cam:[15,8],armor:.75,robot:true,badgeY:7.5};
+    morphCar(R,0);
+  }else if(type==='robot2'){
+    /* a light robot that folds into a yellow sports car; rockets come from two pods on its shoulders */
+    const Y=0xffc21a,W=0xf4f4f0,G=0x2c333d,parts=[],arms=[],legs=[];
+    const part=(tp,tr,rp,rr,d)=>{const o=new THREE.Group();body.add(o);const P={o,tp:new THREE.Vector3(...tp),tr,rp:new THREE.Vector3(...rp),rr,d};parts.push(P);return P};
+    for(const sx of [1,-1]){
+      /* leg hangs from the hip; lying backwards it is the back half of the car */
+      const P=part([sx*.58,.75,-.1],[Math.PI/2,0,0],[sx*.6,2.6,0],[0,0,0],0),L=P.o;P.leg=sx;legs.push(P);
+      cyl(.24,.6,G,0,0,0,'x',L);box(.55,1.0,.55,W,0,-.55,0,L);
+      box(1.05,1.45,.7,Y,0,-1.8,0,L);box(.06,1.2,.2,W,sx*.53,-1.8,.2,L);box(.8,.35,.12,G,0,-1.25,.36,L);
+      box(1.0,.3,.9,DARK,0,-2.45,.1,L);box(.4,.1,.06,0xff2a2a,sx*.15,-2.62,-.2,L);
+      wheel(sx*.62,.23,.52,.6,0,0x9aa3ad,L,-1.35);
+    }
+    /* body core with hips: hidden under the cabin while driving */
+    const core=part([0,.75,.3],[Math.PI/2,0,0],[0,3.6,0],[0,0,0],.1).o;
+    box(1.3,1.5,.8,G,0,0,0,core);box(1.5,.4,.7,G,0,-.95,0,core);box(.5,.5,.06,0x37e07a,0,.15,.41,core);
+    /* the hood stands up and becomes the chest, front wheels end up at its sides */
+    const hood=part([0,.85,1.55],[0,0,0],[0,3.95,.45],[Math.PI/2,0,0],.2).o;
+    box(2.2,.35,1.6,Y,0,0,0,hood);box(.3,.37,1.62,W,0,.005,0,hood);
+    box(.55,.12,.08,0xffffff,.72,0,.81,hood);box(.55,.12,.08,0xffffff,-.72,0,.81,hood);box(2.3,.14,.2,G,0,-.12,.86,hood);
+    wheel(1.18,-.05,.48,.46,1,0x9aa3ad,hood,-.37);wheel(-1.18,-.05,.48,.46,1,0x9aa3ad,hood,-.37);
+    /* the cabin with its glass folds onto the back, the wing with it */
+    const cab=part([0,1.18,-.45],[0,0,0],[0,3.9,-.55],[Math.PI/2,0,0],.25).o;
+    box(1.8,.42,1.9,Y,0,0,0,cab);box(1.82,.2,1.2,0x5fb8ef,0,0,-.1,cab);box(.3,.44,1.92,W,0,0,0,cab);const ws=box(1.76,.06,.95,0x5fb8ef,0,.04,1.0,cab);ws.rotation.x=.55;
+    box(2.3,.08,.55,G,0,.5,-1.6,cab);box(.1,.45,.1,G,.8,.27,-1.6,cab);box(.1,.45,.1,G,-.8,.27,-1.6,cab);
+    /* arms hide inside the car */
+    for(const sx of [1,-1]){
+      const P=part([sx*.8,.72,-.3],[-Math.PI/2,0,0],[sx*1.5,4.55,0],[0,sx*Math.PI*2,0],.3),A=P.o;P.arm=sx;
+      box(.7,.6,.8,Y,0,0,0,A);box(.4,.8,.4,W,0,-.6,0,A);box(.5,.9,.5,Y,0,-1.4,0,A);box(.06,.6,.2,W,sx*.26,-1.4,.1,A);box(.36,.36,.36,DARK,0,-2.0,0,A);
+    }
+    /* rocket pods pop up on the shoulders */
+    for(const sx of [1,-1]){
+      const P=part([sx*.55,.75,-1.3],[0,0,0],[sx*.78,5.08,-.5],[0,0,0],.45),Pd=P.o;
+      box(.55,.48,.85,G,0,0,0,Pd);box(.57,.08,.87,Y,0,.2,0,Pd);
+      const brl=new THREE.Group();Pd.add(brl);
+      for(const [x,y] of [[-.13,.08],[.13,.08],[-.13,-.12],[.13,-.12]]){cyl(.085,.5,W,x,y,.2,'z',brl,10);cyl(.06,.06,0xe8322a,x,y,.46,'z',brl,8)}
+      const muzzle=new THREE.Object3D();muzzle.position.z=.6;brl.add(muzzle);
+      arms.push({P,brl,muzzle,rec:0,ax:'z',p0:-.3,dp:.35,rk:-.15});
+    }
+    /* head: hidden low inside the car */
+    const head=part([0,.78,-.5],[0,0,0],[0,5.05,.1],[0,0,0],.5).o;
+    cyl(.14,.4,G,0,-.35,0,'y',head);box(.62,.56,.6,W,0,0,0,head);box(.66,.2,.64,Y,0,.3,0,head);box(.08,.3,.5,Y,0,.5,-.02,head);
+    const vis=new THREE.Mesh(new THREE.BoxGeometry(.5,.14,.06),new THREE.MeshBasicMaterial({color:0x5dff8a}));vis.position.set(0,.02,.31);head.add(vis);
+    Object.assign(R,{faceH:0,faceT:0,parts,arms,legs,morph:0,mt:0,idle:0,side:0,walk:0,ph:0,aim:0,aimT:0,walkT:0,walking:false,noAim:true});
+    R.S={max:25,acc:20,turn:2.1,rad:1.4,cam:[13,6.5],armor:1,robot:true,badgeY:6.4};
     morphCar(R,0);
   }else{ /* fire truck */
     const C=0xe32b2b;
@@ -1328,13 +1373,14 @@ function morphCar(C,m){
     P.o.position.y+=Math.sin(e*Math.PI)*.5;
     let rx=P.tr[0]+(P.rr[0]-P.tr[0])*e;
     if(P.leg)rx+=sw*P.leg*e;                                  /* legs step */
-    if(P.arm)rx+=(-sw*P.arm*.7*(1-C.aim)-Math.PI/2*C.aim)*e;  /* arms swing, or point forward to shoot */
+    const aim=C.noAim?0:C.aim;
+    if(P.arm)rx+=(-sw*P.arm*.7*(1-aim)-Math.PI/2*aim)*e;  /* arms swing, or point forward to shoot */
     P.o.rotation.set(rx,P.tr[1]+(P.rr[1]-P.tr[1])*e,P.tr[2]+(P.rr[2]-P.tr[2])*e);
     /* the body bobs with every step; feet stay on the ground */
     if(!P.leg)P.o.position.y-=Math.abs(sw)*.18*e;
   }
   const b=sm((m-.85)/.15);
-  for(const a of C.arms)a.brl.position.y=-1.3-b*.95+a.rec*.3;
+  for(const a of C.arms)a.brl.position[a.ax]=a.p0+b*a.dp+a.rec*a.rk;
 }
 const transSnd=up=>{for(let i=0;i<6;i++)tone(up?260+i*110:880-i*110,.07,'square',.035,i*.13);noise(.9,.045,2600);tone(up?110:220,.9,'sawtooth',.035);tone(up?660:330,.12,'triangle',.06,.85)};
 const stepSnd=()=>{tone(70,.16,'sine',.14);noise(.08,.05,500)};
@@ -1368,7 +1414,7 @@ car.y=car.lastG=gnd(0,0);CAR.g.position.set(0,car.y,0);
 function setCar(t){
   if(CAR)scene.remove(CAR.g);
   carType=t;CAR=makeCar(t);scene.add(CAR.g);
-  {const fb=document.getElementById('fire');if(fb)fb.textContent=({tank:'💥',gelik:'✴️',sport:'🚀',monster:'⚡',fire:'💧',robot:'🤖'})[t]||'💥'}
+  {const fb=document.getElementById('fire');if(fb)fb.textContent=({tank:'💥',gelik:'✴️',sport:'🚀',monster:'⚡',fire:'💧',robot:'🤖',robot2:'🚀'})[t]||'💥'}
   CAR.g.position.set(car.x,car.y,car.z);CAR.g.rotation.set(car.pitch,car.h,car.roll);
 }
 const inp={u:0,d:0,l:0,r:0};
@@ -1467,7 +1513,7 @@ function hornSnd(t){
   else if(t==='robot'){tone(185,.7,'sawtooth',.08);tone(233,.7,'sawtooth',.07);tone(117,.7,'square',.04)}
   else if(t==='fire'){[0,1,2,3].forEach(i=>tone(i%2?620:860,.27,'triangle',.11,i*.28))}
   else if(t==='monster'){tone(196,.4,'sawtooth',.07);tone(247,.4,'sawtooth',.06);tone(294,.4,'sawtooth',.05)}
-  else if(t==='sport'){tone(880,.11,'square',.06);tone(1100,.11,'square',.05);tone(880,.11,'square',.06,.15);tone(1100,.11,'square',.05,.15)}
+  else if(t==='sport'||t==='robot2'){tone(880,.11,'square',.06);tone(1100,.11,'square',.05);tone(880,.11,'square',.06,.15);tone(1100,.11,'square',.05,.15)}
   else{tone(392,.2,'square',.07);tone(494,.2,'square',.06);tone(392,.2,'square',.07,.26);tone(494,.2,'square',.06,.26)}
 }
 /* menu thumbnails: render each car once into a picture */
@@ -2073,7 +2119,7 @@ function updPlaces(){
 /* ---------- playing together: one device hosts, others join with a 4-digit code.
    Messages go through a public MQTT server over a normal secure web connection, so it works on any network.
    The first digit of the code tells which server the host picked. ---------- */
-const NET_VER=11,TOPIC='bukvomobil-k7q2/',PCOL=['#ff5a4e','#2f8cff','#22b356','#f5a800'];
+const NET_VER=12,TOPIC='bukvomobil-k7q2/',PCOL=['#ff5a4e','#2f8cff','#22b356','#f5a800'];
 /* the first one uses the usual web port 443, which phones and mobile internet let through */
 const BROKERS=[{u:'wss://public.cloud.shiftr.io',o:{username:'public',password:'public'}},{u:'wss://broker.emqx.io:8084/mqtt'},{u:'wss://test.mosquitto.org:8081/mqtt'}];
 let net=null,netAcc=0,netLAcc=0,joinOpen=false;
@@ -2363,6 +2409,7 @@ const WEAP={
   gelik:{cd:.11,sp:150,dmg:4,col:0xff3b30,len:3,th:.18,g:0,life:1,tail:9,spread:.035,knock:.1,slow:.92}, /* machine gun */
   sport:{cd:1,sp:58,dmg:24,col:0xff8a1a,len:1.6,th:.42,g:0,life:2.6,tail:2.4,rocket:true,splash:7,knock:1.5,slow:.4}, /* homing rockets */
   monster:{cd:1.8,pulse:true,dmg:30,rad:17,col:0x6ad8ff,knock:3.5,slow:.2},                               /* electric pulse */
+  robot2:{cd:1.1,sp:52,dmg:22,col:0xff8a1a,len:1.6,th:.42,g:0,life:2.8,tail:2.4,rocket:true,splash:7,knock:1.5,slow:.4,arms:true}, /* shoulder rockets */
   robot:{cd:.26,sp:125,dmg:7,col:0x9dff3a,len:2.4,th:.26,g:0,life:1.3,tail:7,knock:.3,slow:.75,arms:true},  /* arm blasters */
   fire:{cd:.15,sp:70,dmg:3,col:0x6ad0ff,len:2.2,th:.3,g:14,life:1.2,water:true,tail:4,knock:.45,slow:.7}  /* water cannon */
 };
@@ -2392,7 +2439,7 @@ function shotSnd(w){
   if(w==='tank'){tone(80,.5,'sawtooth',.22);tone(48,.7,'square',.14,.02);tone(140,.15,'square',.08)}
   else if(w==='fire')noise(.12,.05,900);
   else if(w==='robot'){tone(1300,.09,'square',.035);tone(520,.16,'sawtooth',.05,.02);noise(.08,.04,4000)}
-  else if(w==='sport'){noise(.45,.09,500);tone(180,.35,'sawtooth',.05);tone(360,.25,'triangle',.04,.05)}
+  else if(w==='sport'||w==='robot2'){noise(.45,.09,500);tone(180,.35,'sawtooth',.05);tone(360,.25,'triangle',.04,.05)}
   else if(w==='monster'){tone(1400,.08,'sawtooth',.06);tone(900,.12,'sawtooth',.06,.05);tone(520,.22,'square',.05,.1);noise(.3,.07,3000)}
   else{tone(950,.04,'square',.045);noise(.04,.04,2000)}
 }
@@ -2433,12 +2480,12 @@ function fire(){
   if(tg&&CAR.turret){CAR.turret.rotation.y=Math.atan2(tg.r.cur.x-car.x,tg.r.cur.z-car.z)-car.h;CAR.muzzle.getWorldPosition(pv);ox=pv.x;oy=pv.y;oz=pv.z}
   if(tg&&!W.rocket){yaw=Math.atan2(tg.r.cur.x-ox,tg.r.cur.z-oz);const tt=tg.d/W.sp;pitch=Math.atan2(tg.r.cur.y+1.2-oy+W.g*tt*tt/2,tg.d)}
   if(W.spread)yaw+=rnd(-W.spread,W.spread);
-  if(W.rocket){pitch=.06;if(tg){const a=Math.atan2(tg.r.cur.x-ox,tg.r.cur.z-oz);yaw=a+Math.atan2(Math.sin(yaw-a),Math.cos(yaw-a))*.4}}
+  if(W.rocket){if(!tl)pitch=.06;if(tg){const a=Math.atan2(tg.r.cur.x-ox,tg.r.cur.z-oz);yaw=a+Math.atan2(Math.sin(yaw-a),Math.cos(yaw-a))*.4}}
   const cp=Math.cos(pitch),fv=car.v*.8;
   const vx=Math.sin(yaw)*cp*W.sp+Math.sin(car.h)*fv,vy=Math.sin(pitch)*W.sp,vz=Math.cos(yaw)*cp*W.sp+Math.cos(car.h)*fv;
   const tid=W.rocket&&tg?tg.id:null;
   spawnShot(ox,oy,oz,vx,vy,vz,w,true,tid);shotSnd(w);
-  pv.set(ox,oy,oz);fxFlash(pv,w==='tank'?1.7:w==='sport'?1:.55,w==='tank'?1.2:0);if(w==='tank'){fxSmoke(pv,3,.7,false)}
+  pv.set(ox,oy,oz);fxFlash(pv,w==='tank'?1.7:W.rocket?1:.55,w==='tank'?1.2:0);if(w==='tank'){fxSmoke(pv,3,.7,false)}
   netSend({t:'shot',p:[r2(ox),r2(oy),r2(oz)],v:[r1(vx),r1(vy),r1(vz)],w,g:tid});
 }
 function sendDmg(id,n,w,dx,dz){
@@ -2524,7 +2571,7 @@ function updShots(dt){
         if(L.state!=='idle'&&L.state!=='wob')continue;
         if(Math.abs(L.x-s.x)<BS*.6&&Math.abs(L.z-s.z)<BS*.6&&s.y<L.base+BS+1){
           end=true;shotImpact(s);
-          if(s.mine&&(s.w==='tank'||s.w==='robot')&&mode!=='race'&&L.state==='idle'){const d=Math.hypot(L.x-car.x,L.z-car.z)||1;hit(L,(L.x-car.x)/d,(L.z-car.z)/d,true)}
+          if(s.mine&&(s.w==='tank'||WEAP[s.w].arms)&&mode!=='race'&&L.state==='idle'){const d=Math.hypot(L.x-car.x,L.z-car.z)||1;hit(L,(L.x-car.x)/d,(L.z-car.z)/d,true)}
           break;
         }
       }
@@ -2558,7 +2605,7 @@ function takeShot(d){
   if(carDead){const r=remotes.get(d.f);showBanner(Tx().killedYou(nameOf(d.f)));netSend({t:'kill',to:d.f})}
 }
 /* ---------- engine sound: quiet, rises with speed and throttle, each car has its own voice ---------- */
-const ENG={robot:[38,84,'sawtooth'],gelik:[46,92,'sawtooth'],sport:[70,190,'sawtooth'],tank:[28,52,'square'],monster:[36,80,'sawtooth'],fire:[44,88,'sawtooth']};
+const ENG={robot2:[62,170,'sawtooth'],robot:[38,84,'sawtooth'],gelik:[46,92,'sawtooth'],sport:[70,190,'sawtooth'],tank:[28,52,'square'],monster:[36,80,'sawtooth'],fire:[44,88,'sawtooth']};
 let eng=null;
 function updEngine(){
   if(!ac)return;
