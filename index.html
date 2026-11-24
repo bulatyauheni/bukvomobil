@@ -1989,7 +1989,7 @@ function showCard(d,kind,extra){
 function updScore(){$('#scoreN').textContent=mode==='race'?((board.get(myId())||{}).n||0)+'/'+WIN:score;drawBoard()}
 /* I bumped a letter: a joined player asks the host, the host (or a solo player) decides right away */
 /* ---------- ammo and super powers: every letter you collect refills ammo and gives a random power ---------- */
-const AMMO={robot3:40,gelik:60,fire:50,robot:24,robot2:6,sport:6,tank:6,monster:5};
+const AMMO={robot3:80,gelik:60,fire:50,robot:24,robot2:6,sport:6,tank:6,monster:5};
 const pw={shield:0,turbo:0,rapid:0,q:[]};let ammo=0,noAmmoT=0;
 const packOf=t=>AMMO[t]||10;
 function updAmmo(){
@@ -2587,7 +2587,7 @@ const WEAP={
   monster:{cd:1.8,pulse:true,dmg:30,rad:17,col:0x6ad8ff,knock:3.5,slow:.2},                               /* electric pulse */
   robot2:{cd:1.1,sp:52,dmg:22,col:0xff8a1a,len:1.6,th:.42,g:0,life:2.8,tail:2.4,rocket:true,splash:7,knock:1.5,slow:.4,arms:true}, /* shoulder rockets */
   robot:{cd:.26,sp:125,dmg:7,col:0x9dff3a,len:2.4,th:.26,g:0,life:1.3,tail:7,knock:.3,slow:.75,arms:true},  /* arm blasters */
-  robot3:{cd:.1,beam:true,dmg:2.6,range:48,col:0x6ad8ff,knock:.05,slow:.9,arms:true}, /* hammer beam: ammo = tenths of a second */
+  robot3:{cd:.1,beam:true,dmg:4,range:48,col:0x6ad8ff,knock:.05,slow:.9,arms:true}, /* hammer beam: ammo = tenths of a second */
   fire:{cd:.15,sp:70,dmg:3,col:0x6ad0ff,len:2.2,th:.3,g:14,life:1.2,water:true,tail:4,knock:.45,slow:.7}  /* water cannon */
 };
 const shots=[],shotPool=[],zaps=[],beamAcc={};let fireCool=0,spawnT=0;
